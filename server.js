@@ -7,7 +7,9 @@ const cookieParser = require('cookie-parser')
 const bcrypt = require('bcrypt')
 
 const errorController = require('./controllers/error')
-const categoryRouter = require('./controllers/category');
+const categoryRouter = require('./routes/category');
+const countryRouter = require('./routes/country');
+const companyRouter = require('./routes/company');
 
 const app = express();
 
@@ -32,7 +34,9 @@ app.use(cookieParser('JOBAPI'))
 //     next()
 // })
 
-app.use(categoryRouter.getAllCategories)
+app.use(categoryRouter)
+app.use(countryRouter)
+app.use(companyRouter)
 
 app.use(errorController.get404)
 app.use(errorController.get500)

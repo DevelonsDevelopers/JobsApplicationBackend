@@ -10,6 +10,26 @@ module.exports = class Category {
     }
 
     static fetchAll(){
-        return db.execute('SELECT * FROM categories')
+        return db.query('SELECT * FROM categories')
+    }
+
+    static fetchByID(params){
+        return db.query('SELECT * FROM categories WHERE id = ?', [params.id])
+    }
+
+    static post(params){
+        return db.query('INSERT INTO categories (`name`, `description`, `image`) VALUES (?, ?, ?)', [params.name, params.description, params.image])
+    }
+
+    static edit(params){
+        return db.query('UPDATE `categories` SET `name` = ?, `description` = ?, `image` = ? WHERE `id` = ?', [params.name, params.description, params.image, params.id])
+    }
+
+    static delete(params){
+        return db.query('DELETE FROM categories WHERE id = ?', [params.id])
+    }
+
+    static status(params){
+        return db.query('UPDATE `categories` SET `status` = ? WHERE id = ?', [params.status, params.id])
     }
 }
