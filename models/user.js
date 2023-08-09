@@ -10,4 +10,8 @@ module.exports = class User {
         this.phone = phone;
         this.address = address;
     }
+
+    static fetchAll(){
+        return db.query('SELECT * FROM user')
+    }
 }
