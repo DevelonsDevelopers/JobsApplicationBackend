@@ -9,4 +9,8 @@ module.exports = class transactions {
         this.amount = amount;
         this.status = status;
     }
+
+    static fetchAll(){
+
     }
+}

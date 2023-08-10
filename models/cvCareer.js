@@ -10,4 +10,6 @@ module.exports = class CvCareer {
         this.address = address;
         this.phone = phone;
     }
-    }
+
+
+}
