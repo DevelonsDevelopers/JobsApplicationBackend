@@ -19,6 +19,10 @@ module.exports = class plans {
         return db.query('SELECT * FROM plans WHERE id = ?', [params.id])
     }
 
+    static fetchByType(params){
+        return db.query('SELECT * FROM plans WHERE accounttype = ?', [params.type])
+    }
+
     static post(params){
         return db.query('INSERT INTO `plans` (`name`, `amount`, `type`, `accounttype`, `timeperiod`, `purpose`) VALUES (?, ?, ?, ?, ?, ?)', [params.name, params.amount, params.type, params.accounttype, params.timeperiod, params.purpose])
     }

@@ -24,10 +24,14 @@ module.exports = class User {
     }
 
     static edit(params){
-        return db.query('UPDATE `user` SET `name` = ?, `username` = ?, `email` = ?, `password` = ?, `phone` = ?, `address` = ? WHERE (`id` = ?);', [params.name, params.username, params.email, params.password, params.phone, params.address, params.id])
+        return db.query('UPDATE `user` SET `name` = ?, `username` = ?, `email` = ?, `password` = ?, `phone` = ?, `address` = ? WHERE (`id` = ?)', [params.name, params.username, params.email, params.password, params.phone, params.address, params.id])
     }
 
     static delete(params){
         return db.query('DELETE FROM user WHERE id = ?', [params.id])
+    }
+
+    static status(params){
+        return db.query('UPDATE `user` SET `status` = ? WHERE (`id` = ?)', [params.status, params.id])
     }
 }

@@ -17,6 +17,10 @@ module.exports = class City {
         return db.query('SELECT cities.*, countries.name as country_name FROM cities INNER JOIN countries ON countries.id = cities.country WHERE cities.id = ?', [params.id])
     }
 
+    static fetchByCountry(params){
+        return db.query('SELECT cities.*, countries.name as country_name FROM cities INNER JOIN countries ON countries.id = cities.country WHERE cities.country = ?', [params.country])
+    }
+
     static post(params){
         return db.query('INSERT INTO `cities` (`name`, `country`, `description`) VALUES (?, ?, ?)', [params.name, params.country, params.description])
     }

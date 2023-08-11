@@ -14,7 +14,11 @@ module.exports = class Applied {
     }
 
     static fetchByID(params){
-        return db.query('SELECT applied.id, applied.date, applied.proposal, seekers.name, seekers.username, seekers.email, seekers.phone, seekers.address, jobs.title, jobs.role, jobs.type, jobs.salary, jobs.experience, jobs.qualification FROM applied INNER JOIN jobs on jobs.id = applied.job INNER JOIN seekers ON seekers.id = applied.user WHERE id = ?', [params.id])
+        return db.query('SELECT applied.id, applied.date, applied.proposal, seekers.name, seekers.username, seekers.email, seekers.phone, seekers.address, jobs.title, jobs.role, jobs.type, jobs.salary, jobs.experience, jobs.qualification FROM applied INNER JOIN jobs on jobs.id = applied.job INNER JOIN seekers ON seekers.id = applied.user WHERE applied.id = ?', [params.id])
+    }
+
+    static fetchByJob(params){
+        return db.query('SELECT applied.id, applied.date, applied.proposal, seekers.name, seekers.username, seekers.email, seekers.phone, seekers.address, jobs.title, jobs.role, jobs.type, jobs.salary, jobs.experience, jobs.qualification FROM applied INNER JOIN jobs on jobs.id = applied.job INNER JOIN seekers ON seekers.id = applied.user WHERE applied.job = ?', [params.job])
     }
 
     static post(params){

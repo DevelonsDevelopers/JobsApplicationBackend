@@ -12,7 +12,11 @@ module.exports = class Country {
     }
 
     static fetchByID(params){
-        return db.query('SELECT cv.*, seekers.name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE id = ?', [params.id])
+        return db.query('SELECT cv.*, seekers.name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE cv.id = ?', [params.id])
+    }
+
+    static fetchByUser(params){
+        return db.query('SELECT cv.*, seekers.name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE cv.user = ?', [params.user])
     }
 
     static post(params){
