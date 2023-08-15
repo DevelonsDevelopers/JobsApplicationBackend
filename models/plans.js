@@ -32,7 +32,7 @@ module.exports = class plans {
     }
 
     static delete(params){
-        return db.query('DELETE FROM plans WHERE id = ?' [params.id])
+        return db.query('DELETE FROM plans WHERE id = ?', [params.id])
     }
 
     static status(params){

@@ -50,7 +50,7 @@ exports.updateTag = async (req, res, next) => {
 
 exports.deleteTag = async (req, res, next) => {
     try {
-        const [tag] = await Category.delete(req.body)
+        const [tag] = await Tag.delete(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Tag deleted successfully", data: tag});
     } catch (error) {
         if (!error.statusCode){

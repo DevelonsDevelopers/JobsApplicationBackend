@@ -15,7 +15,7 @@ module.exports = class reports {
     }
 
     static fetchByID(params){
-        return db.query('SELECT reports.id, reports.feedback, reports.date, seekers.name, seekers.username, seekers.email, seekers.phone, seekers.address, jobs.title, jobs.role, jobs.type, jobs.salary, jobs.experience, jobs.qualification FROM reports INNER JOIN jobs ON jobs.id = reports.job INNER JOIN seekers ON seekers.id = reports.user WHERE id = ?', [params.id])
+        return db.query('SELECT reports.id, reports.feedback, reports.date, seekers.name, seekers.username, seekers.email, seekers.phone, seekers.address, jobs.title, jobs.role, jobs.type, jobs.salary, jobs.experience, jobs.qualification FROM reports INNER JOIN jobs ON jobs.id = reports.job INNER JOIN seekers ON seekers.id = reports.user WHERE reports.id = ?', [params.id])
     }
 
     static post(params){

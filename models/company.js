@@ -20,7 +20,7 @@ module.exports = class Country {
     }
 
     static fetchByID(params){
-        return db.query('SELECT companies.id, companies.name, companies.size, companies.phone, companies.email, companies.headquater, companies.type, cities.name as city, countries.name as country FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country WHERE id = ?', [params.id])
+        return db.query('SELECT companies.id, companies.name, companies.size, companies.phone, companies.email, companies.headquater, companies.type, cities.name as city, countries.name as country FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country WHERE companies.id = ?', [params.id])
     }
 
     static post(params){
