@@ -31,6 +31,7 @@ const tagsRouter = require('./routes/tags')
 const transactionsRouter = require('./routes/transactions')
 const userRouter = require('./routes/user')
 const userAuthRouter = require('./routes/userAuthentication');
+const citiesRouter = require('./routes/city')
 
 const app = express();
 
@@ -72,6 +73,7 @@ app.use(tagsRouter)
 app.use(transactionsRouter)
 app.use(userRouter)
 app.use(cvRouter)
+app.use(citiesRouter)
 
 app.use(errorController.get404)
 app.use(errorController.get500)
