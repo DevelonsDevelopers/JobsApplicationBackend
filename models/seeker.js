@@ -19,7 +19,7 @@ module.exports = class Seeker {
     }
 
     static fetchByID(params){
-        return db.query('SELECT * FROM seekers WHERE id = ?', [params.id])
+        return db.query('SELECT seekers.*, cities.name as city_name, countries.name as country_name FROM seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country WHERE seekers.id = ?', [params.id])
     }
 
     static post(params){
@@ -27,7 +27,7 @@ module.exports = class Seeker {
     }
 
     static edit(params){
-        return db.query('UPDATE `seekers` SET `name` = ?, `username` = ?, `email` = ?, `password` = ?, `phone` = ?, `address` = ?, `dob` = ?, `gender` = ? WHERE (`id` = ?)', [params.name, params.username, params.email, params.password, params.phone, params.address, params.dob, params.gender, params.id])
+        return db.query('UPDATE `seekers` SET `name` = ?, `city` = ?, `country` = ?, `username` = ?, `phone` = ?, `address` = ?, `dob` = ?, `gender` = ? WHERE (`id` = ?)', [params.name, params.city, params.country, params.username, params.phone, params.address, params.dob, params.gender, params.id])
     }
 
     static delete(params){

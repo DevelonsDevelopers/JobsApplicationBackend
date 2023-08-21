@@ -14,7 +14,7 @@ exports.getAllSeeker = async (req, res, next) => {
 
 exports.getSeekerByID = async (req, res, next) => {
     try {
-        const [seeker] = await Seeker.fetchByID(req.body)
+        const [[seeker]] = await Seeker.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Seeker fetched successfully", data: seeker});
     } catch (error) {
         if (!error.statusCode){
@@ -38,8 +38,14 @@ exports.createSeeker = async (req, res, next) => {
 
 exports.updateSeeker = async (req, res, next) => {
     try {
-        const [seeker] = await Seeker.edit(req.body)
-        res.status(200).json({ "responseCode": 200, "message": "Seeker updated successfully", data: seeker});
+        const [seek] = await Seeker.edit(req.body)
+        if (seek){
+            const [[seeker]] = await Seeker.fetchByID(req.body)
+            res.status(200).json({ "responseCode": 200, "message": "Seeker updated successfully", data: seeker});
+        } else {
+            res.status(200).json({ "responseCode": 200, "message": "Seeker updated successfully", data: null});
+        }
+
     } catch (error) {
         if (!error.statusCode){
             error.statusCode = 500

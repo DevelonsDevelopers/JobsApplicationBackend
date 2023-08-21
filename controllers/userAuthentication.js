@@ -27,7 +27,7 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        const [checkEmail] = await UserAuth.checkEmail(req.body)
+        const [[checkEmail]] = await UserAuth.checkEmail(req.body)
         if (checkEmail.length === 0) {
             res.status(200).json({"responseCode": 200, "message": "Email address not exist", data: null});
         } else {
@@ -39,7 +39,7 @@ exports.login = async (req, res, next) => {
                     next(err)
                 }
                 if (response === true) {
-                    res.send({status: "OK", message: "Login Successful", data: [checkEmail]})
+                    res.send({status: "OK", message: "Login Successful", data: checkEmail})
                 } else {
                     res.send({status: "FAILED", message: "Invalid Password ", data: null})
                 }

@@ -12,10 +12,10 @@ exports.register = async (req, res, next) => {
                     res.status(200).json({"responseCode": 200, "message": "Registered Successfully", data: user});
                 }
             } else {
-                res.status(200).json({"responseCode": 200, "message": "Email already exist", data: null});
+                res.status(200).json({"responseCode": 205, "message": "Email already exist", data: null});
             }
         } else {
-            res.status(200).json({"responseCode": 200, "message": "Username already exist", data: null});
+            res.status(200).json({"responseCode": 206, "message": "Username already exist", data: null});
         }
     } catch (error) {
         if (!error.statusCode) {
@@ -27,9 +27,9 @@ exports.register = async (req, res, next) => {
 
 exports.login = async (req, res, next) => {
     try {
-        const [checkEmail] = await SeekerAuth.checkEmail(req.body)
+        const [[checkEmail]] = await SeekerAuth.checkEmail(req.body)
         if (checkEmail.length === 0) {
-            res.status(200).json({"responseCode": 200, "message": "Email address not exist", data: null});
+            res.status(200).json({responseCode: 205, message: "Email address not exist", data: null});
         } else {
             bcrypt.compare(req.body.password, checkEmail.password, (err, response) => {
                 if (err) {
@@ -39,9 +39,9 @@ exports.login = async (req, res, next) => {
                     next(err)
                 }
                 if (response === true) {
-                    res.send({status: "OK", message: "Login Successful", data: [checkEmail]})
+                    res.send({ responseCode: 200, status: "OK", message: "Login Successful", data: checkEmail})
                 } else {
-                    res.send({status: "FAILED", message: "Invalid Password ", data: null})
+                    res.send({ responseCode: 206, status: "FAILED", message: "Invalid Password ", data: null})
                 }
             })
         }
