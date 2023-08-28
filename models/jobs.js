@@ -26,35 +26,78 @@ module.exports = class jobs {
     }
 
     static fetchAll(){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company')
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company')
+    }
+
+    static fetchRecent(){
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company ORDER BY jobs.created DESC LIMIT 5')
     }
 
     static fetchByID(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.id = ?', [params.id])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.id = ?', [params.id])
+    }
+
+    static search(params){
+        const search = params.search;
+        const country = params.country;
+        const category = params.category;
+        const city = params.city;
+        const company = params.company;
+        const salaryStart = params.salaryStart;
+        const salaryEnd = params.salaryEnd;
+        const type = params.type;
+        const isCountry = params.isCountry;
+        const isCategory = params.isCategory;
+        const isCity = params.isCity;
+        const isCompany = params.isCompany;
+        const isSalary = params.isSalary;
+        const isType = params.isType;
+        const query = `SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.title LIKE '%${search}%'`
+        const countryFilter = ` AND WHERE jobs.country IN ${country} `
+        const categoryFilter = ` AND WHERE jobs.category IN ${category} `
+        const cityFilter = ` AND WHERE jobs.city IN ${city} `
+        const companyFilter = ` AND WHERE jobs.company IN ${company} `
+        const salaryFilter = ` AND WHERE jobs.salary BETWEEN ${salaryStart} AND ${salaryEnd} `
+        const typeFilter = ` AND WHERE jobs.type IN ${type} `
+        var finalQuery = query;
+        if (isCountry==="true"){
+            finalQuery  = finalQuery + countryFilter
+        } else if (isCategory==="true"){
+            finalQuery = finalQuery + categoryFilter
+        } else if (isCity==="true"){
+            finalQuery = finalQuery + cityFilter
+        } else if (isCompany==="true"){
+            finalQuery = finalQuery + companyFilter
+        } else if (isSalary==="true"){
+            finalQuery = finalQuery + salaryFilter
+        } else if (isType==="true"){
+            finalQuery = finalQuery + typeFilter
+        }
+        return db.query(finalQuery)
     }
 
     static fetchByCountry(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.country = ?', [params.country])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.country = ?', [params.country])
     }
 
     static fetchByCity(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.city = ?', [params.city])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.city = ?', [params.city])
     }
 
     static fetchByCompany(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.company = ?', [params.company])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.company = ?', [params.company])
     }
 
     static fetchByCategory(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.category = ?', [params.category])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.category = ?', [params.category])
     }
 
     static post(params){
-        return db.query('INSERT INTO `job_application`.`jobs` (`category`, `country`, `city`, `title`, `company`, `role`, `designation`, `salary`, `description`, `link`, `type`, `workdays`, `worktime`, `address`, `experience`, `qualification`, `skills`, `date`, `tags`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.category, params.country, params.city, params.title, params.company, params.role, params.designation. params.salary, params.description, params.link, params.type, params.workdays, params.worktime, params.address, params.experience, params.qualification, params.skills, params.date, params.tags])
+        return db.query('INSERT INTO `jobs` (`category`, `country`, `city`, `title`, `company`, `role`, `designation`, `salary`, `description`, `link`, `type`, `workdays`, `worktime`, `address`, `experience`, `qualification`, `skills`, `date`, `tags`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.category, params.country, params.city, params.title, params.company, params.role, params.designation, params.salary, params.description, params.link, params.type, params.workdays, params.worktime, params.address, params.experience, params.qualification, params.skills, params.date, params.tags])
     }
 
     static edit(params){
-        return db.query('UPDATE `jobs` SET `category` = ?, `country` = ?, `city` = ?, `title` = ?, `company` = ?, `role` = ?, `designation` = ?, `salary` = ?, `description` = ?, `link` = ?, `type` = ?, `workdays` = ?, `worktime` = ?, `address` = ?, `experience` = ?, `qualification` = ?, `skills` = ?, `date` = ?, `tags` = ? WHERE (`id` = ?)', [params.category, params.country, params.city, params.title, params.company, params.role, params.designation. params.salary, params.description, params.link, params.type, params.workdays, params.worktime, params.address, params.experience, params.qualification, params.skills, params.date, params.tags, params.id])
+        return db.query('UPDATE `jobs` SET `category` = ?, `country` = ?, `city` = ?, `title` = ?, `company` = ?, `role` = ?, `designation` = ?, `salary` = ?, `description` = ?, `link` = ?, `type` = ?, `workdays` = ?, `worktime` = ?, `address` = ?, `experience` = ?, `qualification` = ?, `skills` = ?, `date` = ?, `tags` = ? WHERE (`id` = ?)', [params.category, params.country, params.city, params.title, params.company, params.role, params.designation, params.salary, params.description, params.link, params.type, params.workdays, params.worktime, params.address, params.experience, params.qualification, params.skills, params.date, params.tags, params.id])
     }
 
     static delete(params){

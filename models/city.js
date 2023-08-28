@@ -10,7 +10,7 @@ module.exports = class City {
     }
 
     static fetchAll(){
-        return db.query('SELECT cities.*, countries.name as country_name FROM cities INNER JOIN countries ON countries.id = cities.country')
+        return db.query('SELECT cities.*, countries.name as country_name, (SELECT COUNT(*) FROM jobs WHERE jobs.city = cities.id) as jobs FROM cities INNER JOIN countries ON countries.id = cities.country ORDER BY cities.id DESC')
     }
 
     static fetchByID(params){

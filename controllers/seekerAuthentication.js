@@ -1,4 +1,5 @@
 const SeekerAuth = require('../models/seekerAuthentication')
+const CV = require('../models/cv')
 const bcrypt = require("bcrypt");
 
 exports.register = async (req, res, next) => {
@@ -9,7 +10,10 @@ exports.register = async (req, res, next) => {
             if (checkEmail.length === 0) {
                 const [user] = await SeekerAuth.register(req.body)
                 if (user) {
+                    CV.create(user.insertId, 'Personal Statement')
                     res.status(200).json({"responseCode": 200, "message": "Registered Successfully", data: user});
+                } else {
+                    res.status(200).json({"responseCode": 207, "message": "Failed To Register", data: null});
                 }
             } else {
                 res.status(200).json({"responseCode": 205, "message": "Email already exist", data: null});

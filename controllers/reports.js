@@ -14,7 +14,7 @@ exports.getAllReports = async (req, res, next) => {
 
 exports.getReportByID = async (req, res, next) => {
     try {
-        const [report] = await Report.fetchByID(req.body)
+        const [[report]] = await Report.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Report fetched successfully", data: report});
     } catch (error) {
         if (!error.statusCode){

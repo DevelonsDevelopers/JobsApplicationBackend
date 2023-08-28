@@ -10,7 +10,7 @@ module.exports = class Country {
     }
 
     static fetchAll(){
-        return db.query('SELECT * FROM countries')
+        return db.query('SELECT *, (SELECT COUNT(*) FROM jobs WHERE jobs.country = countries.id) as jobs FROM countries ORDER BY countries.id DESC')
     }
 
     static fetchByID(params){

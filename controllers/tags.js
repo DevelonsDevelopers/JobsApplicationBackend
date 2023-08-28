@@ -14,7 +14,7 @@ exports.getAllTags = async (req, res, next) => {
 
 exports.getTagByID = async (req, res, next) => {
     try {
-        const [tag] = await Tag.fetchByID(req.body)
+        const [[tag]] = await Tag.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Tag fetched successfully", data: tag});
     } catch (error) {
         if (!error.statusCode){

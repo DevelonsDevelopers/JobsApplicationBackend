@@ -43,7 +43,7 @@ app.use(expressSession({secret: 'JOBAPI', resave: false, saveUninitialized: fals
 
 app.use(cors({
     // origin: 'https://gym-management-next.vercel.app',
-    origin: 'http://localhost:3000',
+    origin: 'http://192.168.1.7:3000',
     credentials: true
 }))
 

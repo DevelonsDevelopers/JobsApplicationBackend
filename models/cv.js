@@ -23,6 +23,10 @@ module.exports = class Country {
         return db.query('INSERT INTO `cv` (`user`, `statement`) VALUES (?, ?)', [params.user, params.statement])
     }
 
+    static create(user, statement){
+        return db.query('INSERT INTO `cv` (`user`, `statement`) VALUES (?, ?)', [user, statement])
+    }
+
     static edit(params){
         return db.query('UPDATE `cv` SET `user` = ?, `statement` = ? WHERE (`id` = ?)', [params.user, params.statement, params.id])
     }

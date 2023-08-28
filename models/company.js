@@ -16,11 +16,11 @@ module.exports = class Country {
     }
 
     static fetchAll(){
-        return db.query('SELECT companies.id, companies.name, companies.size, companies.phone, companies.email, companies.headquater, companies.type, cities.name as city, countries.name as country FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country')
+        return db.query('SELECT companies.id, companies.city, companies.country, companies.name, companies.size, companies.phone, companies.email, companies.headquater, companies.type, cities.name as city_name, countries.name as country_name, (SELECT COUNT(*) FROM jobs WHERE jobs.company = companies.id) as jobs FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country ORDER BY companies.id DESC')
     }
 
     static fetchByID(params){
-        return db.query('SELECT companies.id, companies.name, companies.size, companies.phone, companies.email, companies.headquater, companies.type, cities.name as city, countries.name as country FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country WHERE companies.id = ?', [params.id])
+        return db.query('SELECT companies.id, companies.city, companies.country, companies.name, companies.size, companies.phone, companies.email, companies.headquater, companies.type, cities.name as city_name, countries.name as country_name FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country WHERE companies.id = ?', [params.id])
     }
 
     static post(params){
@@ -28,7 +28,7 @@ module.exports = class Country {
     }
 
     static edit(params){
-        return db.query('UPDATE `companies` SET `name` = ?, `size` = ?, `city` = ?, `country` = ?, `phone` = ?, `email` = ?, `password` = ?, `headquater` = ?, `type` = ? WHERE (`id` = ?)', [params.name, params.size, params.city, params.country, params.phone, params.email, params.password, params.headquater, params.type, params.id])
+        return db.query('UPDATE `companies` SET `name` = ?, `size` = ?, `city` = ?, `country` = ?, `phone` = ?, `email` = ?, `headquater` = ?, `type` = ? WHERE (`id` = ?)', [params.name, params.size, params.city, params.country, params.phone, params.email, params.headquater, params.type, params.id])
     }
 
     static delete(params){

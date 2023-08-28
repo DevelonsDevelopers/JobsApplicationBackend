@@ -14,7 +14,7 @@ exports.getAllTransactions = async (req, res, next) => {
 
 exports.getTransactionByID = async (req, res, next) => {
     try {
-        const [transaction] = await Transaction.fetchByID(req.body)
+        const [[transaction]] = await Transaction.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Transaction fetched successfully", data: transaction});
     } catch (error) {
         if (!error.statusCode){

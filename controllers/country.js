@@ -15,7 +15,7 @@ exports.getAllCountries = async (req, res, next) => {
 
 exports.getCountryByID = async (req, res, next) => {
     try {
-        const [country] = await Country.fetchByID(req.body)
+        const [[country]] = await Country.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Country fetched successfully", data: country});
     } catch (error) {
         if (!error.statusCode){
@@ -24,6 +24,7 @@ exports.getCountryByID = async (req, res, next) => {
         next(error)
     }
 }
+
 
 exports.createCountry = async (req, res, next) => {
     try {

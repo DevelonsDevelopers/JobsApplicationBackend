@@ -14,7 +14,7 @@ exports.getAllPlans = async (req, res, next) => {
 
 exports.getPlanByID = async (req, res, next) => {
     try {
-        const [plan] = await Plan.fetchByID(req.body)
+        const [[plan]] = await Plan.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Plan fetched successfully", data: plan});
     } catch (error) {
         if (!error.statusCode){

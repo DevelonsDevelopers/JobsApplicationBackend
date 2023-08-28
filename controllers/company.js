@@ -15,7 +15,7 @@ exports.getAllCompanies = async (req, res, next) => {
 
 exports.getCompanyByID = async (req, res, next) => {
     try {
-        const [company] = await Company.fetchByID(req.body)
+        const [[company]] = await Company.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Company fetched successfully", data: company});
     } catch (error) {
         if (!error.statusCode){

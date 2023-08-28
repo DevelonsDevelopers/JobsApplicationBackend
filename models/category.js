@@ -10,7 +10,11 @@ module.exports = class Category {
     }
 
     static fetchAll(){
-        return db.query('SELECT * FROM categories')
+        return db.query('SELECT *, (SELECT COUNT(*) FROM jobs WHERE jobs.category = categories.id) as jobs FROM categories ORDER BY categories.id DESC')
+    }
+
+    static fetchFeatured(){
+        return db.query('SELECT *, (SELECT COUNT(*) FROM jobs WHERE jobs.category = categories.id) as jobs FROM categories ORDER BY jobs DESC LIMIT 4')
     }
 
     static fetchByID(params){

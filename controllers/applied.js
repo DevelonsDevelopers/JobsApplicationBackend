@@ -14,7 +14,7 @@ exports.getAllApplied = async (req, res, next) => {
 
 exports.getAppliedByID = async (req, res, next) => {
     try {
-        const [applied] = await Applied.fetchByID(req.body)
+        const [[applied]] = await Applied.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Applied Job fetched successfully", data: applied});
     } catch (error) {
         if (!error.statusCode){

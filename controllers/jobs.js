@@ -12,9 +12,33 @@ exports.getAllJobs = async (req, res, next) => {
     }
 }
 
+exports.getRecentJobs = async (req, res, next) => {
+    try {
+        const [jobs] = await Job.fetchRecent()
+        res.status(200).json({ "responseCode": 200, "message": "Recent Jobs fetched successfully", data: jobs});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.getSearch = async (req, res, next) => {
+    try {
+        const [jobs] = await Job.search(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Recent Jobs fetched successfully", data: jobs});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.getJobByID = async (req, res, next) => {
     try {
-        const [job] = await Job.fetchByID(req.body)
+        const [[job]] = await Job.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Job fetched successfully", data: job});
     } catch (error) {
         if (!error.statusCode){
