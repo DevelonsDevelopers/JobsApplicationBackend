@@ -34,6 +34,6 @@ module.exports = class City {
     }
 
     static status(params){
-        return db.query('UPDATE `cities` SET `name` = ? WHERE (`id` = ?)', [params.name, params.id])
+        return db.query('UPDATE `cities` SET `status` = ? WHERE (`id` = ?)', [params.status, params.id])
     }
 }

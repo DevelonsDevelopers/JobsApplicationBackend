@@ -4,7 +4,9 @@ const appliedController = require('../controllers/applied')
 const router = express.Router();
 
 router.get('/applied/all', appliedController.getAllApplied);
+router.post('/applied/company', appliedController.getAppliedByCompany);
 router.post('/applied/get', appliedController.getAppliedByID);
+router.post('/applied/user', appliedController.getAppliedByUser);
 router.post('/applied/job', appliedController.getAppliedByJob);
 router.post('/applied/create', appliedController.applyJob);
 router.put('/applied/status', appliedController.statusAppliedJob);

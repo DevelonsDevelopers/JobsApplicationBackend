@@ -18,8 +18,12 @@ module.exports = class Seeker {
         return db.query('SELECT * FROM seekers')
     }
 
+    static fetchRecommended(params){
+        return db.query('SELECT seekers.*, cities.name as city_name, countries.name as country_name FROM job_application.seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country INNER JOIN jobs ON jobs.tags LIKE CONCAT(\'%\', seekers.role ,\'%\') WHERE jobs.id = ?', [params.job])
+    }
+
     static fetchByID(params){
-        return db.query('SELECT seekers.*, cities.name as city_name, countries.name as country_name FROM seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country WHERE seekers.id = ?', [params.id])
+        return db.query('SELECT seekers.*, cities.name as city_name, countries.name as country_name, (SELECT COUNT(*) FROM bookmarks WHERE bookmarks.user = seekers.id) as saved , (SELECT COUNT(*) FROM applied WHERE applied.user = seekers.id) as applied FROM seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country WHERE seekers.id = ?', [params.id])
     }
 
     static post(params){
@@ -36,5 +40,9 @@ module.exports = class Seeker {
 
     static status(params){
         return db.query('UPDATE `seekers` SET `status` = ? WHERE id = ?', [params.status, params.id])
+    }
+
+    static verify(params){
+        return db.query('UPDATE `seekers` SET `verified` = ?, `phone` = ? WHERE id = ?', [params.verify, params.phone, params.id])
     }
 }

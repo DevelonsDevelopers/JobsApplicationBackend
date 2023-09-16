@@ -49,6 +49,18 @@ exports.updateCompany = async (req, res, next) => {
     }
 }
 
+exports.completeCompany = async (req, res, next) => {
+    try {
+        const [company] = await Company.complete(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Company completed successfully", data: company});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.deleteCompany = async (req, res, next) => {
     try {
         const [company] = await Company.delete(req.body)

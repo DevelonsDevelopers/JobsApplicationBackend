@@ -70,3 +70,15 @@ exports.getCVByUser = async (req, res, next) => {
         next(error)
     }
 }
+
+exports.updatePersonalStatement = async (req, res, next) => {
+    try {
+        const [statement] = await CV.statement(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Statement updated successfully", data: statement});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}

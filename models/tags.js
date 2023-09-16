@@ -15,6 +15,10 @@ module.exports = class tags {
         return db.query('SELECT * FROM tags WHERE id = ?', [params.id])
     }
 
+    static topTags(params){
+        return db.query('SELECT tags.id, tags.name, COUNT(*) as c FROM job_application.tags LEFT JOIN jobs ON jobs.tags LIKE CONCAT(\'%\', tags.name ,\'%\') INNER JOIN interactions ON interactions.job = jobs.id WHERE interactions.user = ? GROUP BY tags.id ORDER BY c DESC', [params.user])
+    }
+
     static post(params){
         return db.query('INSERT INTO `tags` (`name`) VALUES (?)', [params.name])
     }

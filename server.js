@@ -5,6 +5,7 @@ const passport = require('passport')
 const expressSession = require('express-session')
 const cookieParser = require('cookie-parser')
 const bcrypt = require('bcrypt')
+const Stripe = require("stripe")
 
 const errorController = require('./controllers/error')
 const appliedRouter = require('./routes/applied');
@@ -32,10 +33,39 @@ const transactionsRouter = require('./routes/transactions')
 const userRouter = require('./routes/user')
 const userAuthRouter = require('./routes/userAuthentication');
 const citiesRouter = require('./routes/city')
+const bookmarksRouter = require('./routes/bookmark')
+const dashboardRouter = require('./routes/dashboard')
+const coverRouter = require('./routes/cover')
+const offerRouter = require('./routes/offers')
+const paymentRouter = require('./routes/payment')
 
 const app = express();
 
 const port = process.env.PORT || 5001;
+
+const PUBLISHABLE_KEY = "pk_test_51NpsCXBA5mbdD8e2Tg8MVBCXtomGyF11MzP1eFRceziDGIOGxMwmjToCNFLQEc2zXeYnBUhk89oKcJ9ffXpSikqU00bObmoUIu";
+const SECRET_KEY = "sk_test_51NpsCXBA5mbdD8e2xS4UKx8BT8wRi1OxkzDQc2j6bArEzdJht3yxOXQcPMecdX5YVGdzNmwK2u3tJNVqAiaP3toT00MIf7IOrJ";
+
+const stripe = Stripe(SECRET_KEY, { apiVersion: "2023-08-16" });
+
+app.post("/create-payment-intent", async (req, res) => {
+    try {
+        const paymentIntent = await stripe.paymentIntents.create({
+            amount: 500, //lowest denomination of particular currency
+            currency: "usd",
+            payment_method_types: ["card"], //by default
+        });
+
+        const clientSecret = paymentIntent.client_secret;
+
+        res.json({
+            clientSecret: clientSecret,
+        });
+    } catch (e) {
+        console.log(e.message);
+        res.json({ error: e.message });
+    }
+});
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
@@ -43,7 +73,7 @@ app.use(expressSession({secret: 'JOBAPI', resave: false, saveUninitialized: fals
 
 app.use(cors({
     // origin: 'https://gym-management-next.vercel.app',
-    origin: 'http://192.168.1.7:3000',
+    origin: ['http://192.168.1.4:3000', 'http://192.168.1.4:3001', 'http://192.168.1.25:3000', 'http://localhost:3000'],
     credentials: true
 }))
 
@@ -74,6 +104,11 @@ app.use(transactionsRouter)
 app.use(userRouter)
 app.use(cvRouter)
 app.use(citiesRouter)
+app.use(bookmarksRouter)
+app.use(dashboardRouter)
+app.use(coverRouter)
+app.use(offerRouter)
+app.use(paymentRouter)
 
 app.use(errorController.get404)
 app.use(errorController.get500)

@@ -12,10 +12,34 @@ exports.getAllApplied = async (req, res, next) => {
     }
 }
 
+exports.getAppliedByCompany = async (req, res, next) => {
+    try {
+        const [applied] = await Applied.fetchCompany(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Applied Jobs fetched successfully", data: applied});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.getAppliedByID = async (req, res, next) => {
     try {
         const [[applied]] = await Applied.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Applied Job fetched successfully", data: applied});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.getAppliedByUser = async (req, res, next) => {
+    try {
+        const [applied] = await Applied.fetchByUser(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Applied Jobs fetched successfully", data: applied});
     } catch (error) {
         if (!error.statusCode){
             error.statusCode = 500

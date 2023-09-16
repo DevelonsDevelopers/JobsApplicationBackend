@@ -25,8 +25,12 @@ module.exports = class jobs {
         this.status = status;
     }
 
-    static fetchAll(){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company')
+    static fetchAll(params){
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, jobs.status, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ?', [params.user])
+    }
+
+    static fetchRecommended(params){
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? WHERE jobs.tags LIKE CONCAT(\'%\', ? ,\'%\')', [params.user, params.tag])
     }
 
     static fetchRecent(){
@@ -34,7 +38,7 @@ module.exports = class jobs {
     }
 
     static fetchByID(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.id = ?', [params.id])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(applied.id, 0) as applied, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN applied ON applied.job = jobs.id AND applied.user = ? LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? WHERE jobs.id = ?', [params.user, params.user, params.id])
     }
 
     static search(params){
@@ -53,12 +57,12 @@ module.exports = class jobs {
         const isSalary = params.isSalary;
         const isType = params.isType;
         const query = `SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.title LIKE '%${search}%'`
-        const countryFilter = ` AND WHERE jobs.country IN ${country} `
-        const categoryFilter = ` AND WHERE jobs.category IN ${category} `
-        const cityFilter = ` AND WHERE jobs.city IN ${city} `
-        const companyFilter = ` AND WHERE jobs.company IN ${company} `
+        const countryFilter = ` AND WHERE jobs.country IN ( ${country} ) `
+        const categoryFilter = ` AND WHERE jobs.category IN ( ${category} ) `
+        const cityFilter = ` AND WHERE jobs.city IN ( ${city} ) `
+        const companyFilter = ` AND WHERE jobs.company IN ( ${company} ) `
         const salaryFilter = ` AND WHERE jobs.salary BETWEEN ${salaryStart} AND ${salaryEnd} `
-        const typeFilter = ` AND WHERE jobs.type IN ${type} `
+        const typeFilter = ` AND WHERE jobs.type IN ( ${type} ) `
         var finalQuery = query;
         if (isCountry==="true"){
             finalQuery  = finalQuery + countryFilter
@@ -77,19 +81,19 @@ module.exports = class jobs {
     }
 
     static fetchByCountry(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.country = ?', [params.country])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? WHERE jobs.country = ?', [params.user, params.country])
     }
 
     static fetchByCity(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.city = ?', [params.city])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? WHERE jobs.city = ?', [params.user, params.city])
     }
 
     static fetchByCompany(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.company = ?', [params.company])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? WHERE jobs.company = ?', [params.user, params.company])
     }
 
     static fetchByCategory(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.category = ?', [params.category])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark FROM job_application.jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? WHERE jobs.category = ?', [params.user, params.category])
     }
 
     static post(params){

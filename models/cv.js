@@ -31,6 +31,10 @@ module.exports = class Country {
         return db.query('UPDATE `cv` SET `user` = ?, `statement` = ? WHERE (`id` = ?)', [params.user, params.statement, params.id])
     }
 
+    static statement(params){
+        return db.query('UPDATE `cv` SET `statement` = ? WHERE (`id` = ?)', [params.statement, params.id])
+    }
+
     static delete(params){
         return db.query('DELETE FROM cv WHERE id = ?', [params.id])
     }

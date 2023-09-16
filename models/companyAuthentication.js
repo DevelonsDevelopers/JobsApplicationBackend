@@ -22,6 +22,6 @@ module.exports = class CompanyAuthentication {
 
     static register(params){
         const hashedPassword = bcrypt.hashSync(params.password, 10);
-        return db.query('INSERT INTO `companies` (`name`, `size`, `city`, `country`, `phone`, `email`, `password`, `headquater`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.size, params.username, params.email, hashedPassword, params.phone, params.address, params.headquater, params.type])
+        return db.query('INSERT INTO `companies` (`name`, `size`, `city`, `country`, `phone`, `email`, `password`, `headquater`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.size, params.city, params.country, params.phone, params.email, hashedPassword, params.phone, params.address, params.headquater, params.type])
     }
 }

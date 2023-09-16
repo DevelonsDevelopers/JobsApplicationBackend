@@ -27,4 +27,9 @@ module.exports = class SeekerAuthentication {
         const hashedPassword = bcrypt.hashSync(params.password, 10);
         return db.query('INSERT INTO `seekers` (`name`, `username`, `email`, `password`, `phone`, `address`, `dob`, `gender`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.username, params.email, hashedPassword, params.phone, params.address, params.dob, params.gender])
     }
+
+    static changePassword(params){
+        const hashedPassword = bcrypt.hashSync(params.password, 10);
+        return db.query('UPDATE `seekers` SET `password` = ? WHERE (`id` = ?)', [hashedPassword])
+    }
 }

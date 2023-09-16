@@ -24,6 +24,18 @@ exports.getTagByID = async (req, res, next) => {
     }
 }
 
+exports.getTopTags = async (req, res, next) => {
+    try {
+        const [tags] = await Tag.topTags(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Top Tags fetched successfully", data: tags});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.createTag = async (req, res, next) => {
     try {
         const [tag] = await Tag.post(req.body)

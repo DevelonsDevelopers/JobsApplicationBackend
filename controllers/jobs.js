@@ -2,7 +2,7 @@ const Job = require('../models/jobs')
 
 exports.getAllJobs = async (req, res, next) => {
     try {
-        const [jobs] = await Job.fetchAll()
+        const [jobs] = await Job.fetchAll(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Jobs fetched successfully", data: jobs});
     } catch (error) {
         if (!error.statusCode){
@@ -16,6 +16,18 @@ exports.getRecentJobs = async (req, res, next) => {
     try {
         const [jobs] = await Job.fetchRecent()
         res.status(200).json({ "responseCode": 200, "message": "Recent Jobs fetched successfully", data: jobs});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.getRecommendedJobs = async (req, res, next) => {
+    try {
+        const [jobs] = await Job.fetchRecommended(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Recommended Jobs fetched successfully", data: jobs});
     } catch (error) {
         if (!error.statusCode){
             error.statusCode = 500
