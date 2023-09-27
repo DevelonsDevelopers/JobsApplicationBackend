@@ -1,5 +1,5 @@
 const express = require('express')
-const cityController = require('../controllers/City')
+const cityController = require('../controllers/city')
 
 const router = express.Router();
 
