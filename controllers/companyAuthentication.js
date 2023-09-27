@@ -1,6 +1,5 @@
 const CompanyAuth = require('../models/companyAuthentication')
 const bcrypt = require("bcrypt");
-const CV = require("../models/cv");
 
 exports.register = async (req, res, next) => {
     try {
