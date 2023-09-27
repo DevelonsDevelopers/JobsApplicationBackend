@@ -24,4 +24,9 @@ module.exports = class CompanyAuthentication {
         const hashedPassword = bcrypt.hashSync(params.password, 10);
         return db.query('INSERT INTO `companies` (`name`, `size`, `city`, `country`, `phone`, `email`, `password`, `headquater`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.size, params.city, params.country, params.phone, params.email, hashedPassword, params.phone, params.address, params.headquater, params.type])
     }
+
+    static changePassword(params){
+        const hashedPassword = bcrypt.hashSync(params.password, 10);
+        return db.query('UPDATE `companies` SET `password` = ? WHERE (`id` = ?)', [hashedPassword])
+    }
 }

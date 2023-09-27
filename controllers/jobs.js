@@ -108,6 +108,30 @@ exports.getJobByCompany = async (req, res, next) => {
     }
 }
 
+exports.getJobsByProvider = async (req, res, next) => {
+    try {
+        const [jobs] = await Job.fetchByProvider(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Jobs fetched successfully", data: jobs});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.getJobsByProviderFeatured = async (req, res, next) => {
+    try {
+        const [jobs] = await Job.fetchByProviderFeatured(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Jobs fetched successfully", data: jobs});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.createJob = async (req, res, next) => {
     try {
         const [job] = await Job.post(req.body)

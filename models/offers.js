@@ -16,15 +16,19 @@ module.exports = class Offers {
     }
 
     static fetch(params){
-        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user WHERE offers.id = ?', [params.id])
+        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type, companies.name as company_name FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user INNER JOIN companies ON jobs.company = companies.id WHERE offers.id = ?', [params.id])
     }
 
     static fetchByCompany(params){
-        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user WHERE jobs.company = ?', [params.company])
+        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type, companies.name as company_name FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user INNER JOIN companies ON jobs.company = companies.id WHERE jobs.company = ?', [params.company])
+    }
+
+    static fetchByJob(params){
+        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type, companies.name as company_name FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user INNER JOIN companies ON jobs.company = companies.id WHERE offers.job = ?', [params.job])
     }
 
     static fetchByUser(params){
-        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user WHERE offers.user = ?', [params.user])
+        return db.query('SELECT offers.*, jobs.title, jobs.company, jobs.role, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, seekers.name as seeker_name, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender, seekers.type, companies.name as company_name FROM offers INNER JOIN jobs ON jobs.id = offers.job INNER JOIN seekers ON seekers.id = offers.user INNER JOIN companies ON jobs.company = companies.id WHERE offers.user = ?', [params.user])
     }
 
     static create(params){
@@ -32,6 +36,6 @@ module.exports = class Offers {
     }
 
     static updateStatus(params){
-        return db.query('UPDATE `offers` SET `offerStatus` = ? WHERE (`id` = ?)', [params.status, params.id])
+        return db.query('UPDATE `offers` SET `offerStatus` = ?, `response` = ?, `responseDate` = ? WHERE (`id` = ?);', [params.status, params.response, params.responseDate, params.id])
     }
 }

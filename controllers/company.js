@@ -52,7 +52,21 @@ exports.updateCompany = async (req, res, next) => {
 exports.completeCompany = async (req, res, next) => {
     try {
         const [company] = await Company.complete(req.body)
+        console.log(company)
         res.status(200).json({ "responseCode": 200, "message": "Company completed successfully", data: company});
+    } catch (error) {
+        console.log(error)
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.completeRegistration = async (req, res, next) => {
+    try {
+        const [company] = await Company.completeRegistration(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Company Registration completed successfully", data: company});
     } catch (error) {
         if (!error.statusCode){
             error.statusCode = 500
@@ -77,6 +91,18 @@ exports.statusCompany = async (req, res, next) => {
     try {
         const [company] = await Company.status(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Status changed successfully", data: company});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.verifyCompany = async (req, res, next) => {
+    try {
+        const [company] = await Company.verify(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Phone number verified successfully", data: company});
     } catch (error) {
         if (!error.statusCode){
             error.statusCode = 500

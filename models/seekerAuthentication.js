@@ -30,6 +30,6 @@ module.exports = class SeekerAuthentication {
 
     static changePassword(params){
         const hashedPassword = bcrypt.hashSync(params.password, 10);
-        return db.query('UPDATE `seekers` SET `password` = ? WHERE (`id` = ?)', [hashedPassword])
+        return db.query('UPDATE `seekers` SET `password` = ? WHERE (`id` = ?)', [hashedPassword, params.id])
     }
 }

@@ -14,6 +14,10 @@ module.exports = class Cover {
         return db.query('SELECT * FROM cover WHERE id = ?', [params.id])
     }
 
+    static fetchByUser(params){
+        return db.query('SELECT * FROM cover WHERE user = ? AND job = ?', [params.user, params.job])
+    }
+
     static fetchByJob(params){
         return db.query('SELECT * FROM cover WHERE job = ?', [params.job])
     }

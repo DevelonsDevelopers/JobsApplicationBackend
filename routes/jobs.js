@@ -12,6 +12,8 @@ router.post('/jobs/category', jobsController.getJobByCategory);
 router.post('/jobs/country', jobsController.getJobByCountry);
 router.post('/jobs/city', jobsController.getJobByCity);
 router.post('/jobs/company', jobsController.getJobByCompany);
+router.post('/jobs/provider', jobsController.getJobsByProvider);
+router.post('/jobs/providerFeatured', jobsController.getJobsByProviderFeatured);
 router.post('/jobs/create', jobsController.createJob);
 router.put('/jobs/status', jobsController.statusJob);
 router.put('/jobs/update', jobsController.updateJob);

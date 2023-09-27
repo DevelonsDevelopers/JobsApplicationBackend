@@ -13,23 +13,23 @@ module.exports = class interactions {
     }
 
     static fetchAll(){
-        return db.query('SELECT interactions.*, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user')
+        return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user')
     }
 
     static fetchByID(params){
-        return db.query('SELECT interactions.*, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.id = ?', [params.id])
+        return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.id = ?', [params.id])
     }
 
     static fetchByJob(params){
-        return db.query('SELECT interactions.*, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.job = ?', [params.job])
+        return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.job = ?', [params.job])
     }
 
     static fetchByUser(params){
-        return db.query('SELECT interactions.*, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.user = ?', [params.user])
+        return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.user = ?', [params.user])
     }
 
     static fetchByType(params){
-        return db.query('SELECT interactions.*, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.interactiontype = ?', [params.type])
+        return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.interactiontype = ?', [params.type])
     }
 
     static post(params){

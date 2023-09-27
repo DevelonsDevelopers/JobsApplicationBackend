@@ -2,7 +2,19 @@ const Cover = require("../models/cover");
 
 exports.getCoverByID = async (req, res, next) => {
     try {
-        const [cover] = await Cover.fetchByID(req.body)
+        const [[cover]] = await Cover.fetchByID(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Cover fetched successfully", data: cover});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
+exports.getCoverByUser = async (req, res, next) => {
+    try {
+        const [[cover]] = await Cover.fetchByUser(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Cover fetched successfully", data: cover});
     } catch (error) {
         if (!error.statusCode){

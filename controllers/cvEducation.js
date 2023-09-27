@@ -26,7 +26,9 @@ exports.createEducation = async (req, res, next) => {
 
 exports.updateEducation = async (req, res, next) => {
     try {
+        console.log(req.body)
         const [education] = await CVEducation.edit(req.body)
+        console.log(education)
         res.status(200).json({ "responseCode": 200, "message": "Education updated successfully", data: education});
     } catch (error) {
         if (!error.statusCode){
