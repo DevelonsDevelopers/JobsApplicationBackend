@@ -3,7 +3,7 @@ const cityController = require('../controllers/city')
 
 const router = express.Router();
 
-router.get('/cities/all', cityController.getAllCities);
+router.get('/api/cities/all', cityController.getAllCities);
 router.post('/cities/get', cityController.getCityByID);
 router.post('/cities/country', cityController.getCityByCountry);
 router.post('/cities/create', cityController.createCity);

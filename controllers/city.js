@@ -15,8 +15,10 @@ exports.getAllCities = async (req, res, next) => {
 exports.getCityByID = async (req, res, next) => {
     try {
         const [[city]] = await City.fetchByID(req.body)
+        console.log(city)
         res.status(200).json({ "responseCode": 200, "message": "City fetched successfully", data: city});
     } catch (error) {
+        console.log(error)
         if (!error.statusCode){
             error.statusCode = 500
         }
