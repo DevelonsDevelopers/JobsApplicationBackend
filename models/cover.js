@@ -23,6 +23,6 @@ module.exports = class Cover {
     }
 
     static create(params){
-        return db.query('INSERT INTO `job_application`.`cover` (`user`, `job`, `date`, `role`, `intro`, `body`) VALUES (?, ?, ?, ?, ?, ?)', [params.user, params.job, params.date, params.role, params.intro, params.body])
+        return db.query('INSERT INTO `cover` (`user`, `job`, `date`, `role`, `intro`, `body`) VALUES (?, ?, ?, ?, ?, ?)', [params.user, params.job, params.date, params.role, params.intro, params.body])
     }
 }

@@ -19,7 +19,7 @@ module.exports = class Seeker {
     }
 
     static fetchRecommended(params){
-        return db.query('SELECT seekers.*, jobs.id as job, cities.name as city_name, countries.name as country_name, IFNULL(offers.id, 0) as offer FROM job_application.seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country LEFT JOIN offers ON offers.user = seekers.id AND offers.job = ? INNER JOIN jobs ON jobs.tags LIKE CONCAT(\'%\', seekers.role ,\'%\') WHERE jobs.id = ?', [params.job, params.job])
+        return db.query('SELECT seekers.*, jobs.id as job, cities.name as city_name, countries.name as country_name, IFNULL(offers.id, 0) as offer FROM seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country LEFT JOIN offers ON offers.user = seekers.id AND offers.job = ? INNER JOIN jobs ON jobs.tags LIKE CONCAT(\'%\', seekers.role ,\'%\') WHERE jobs.id = ?', [params.job, params.job])
     }
 
     static fetchByID(params){
@@ -31,7 +31,7 @@ module.exports = class Seeker {
     }
 
     static post(params){
-        return db.query('INSERT INTO `job_application`.`seekers` (`name`, `username`, `email`, `password`, `phone`, `address`, `dob`, `gender`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.username, params.email, params.password, params.phone, params.address, params.dob, params.gender])
+        return db.query('INSERT INTO `seekers` (`name`, `username`, `email`, `password`, `phone`, `address`, `dob`, `gender`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.username, params.email, params.password, params.phone, params.address, params.dob, params.gender])
     }
 
     static edit(params){

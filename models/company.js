@@ -36,7 +36,7 @@ module.exports = class Country {
     }
 
     static completeRegistration(params){
-        return db.query('UPDATE `job_application`.`companies` SET `name` = ?, `size` = ? WHERE (`id` = ?)', [params.name, params.size, params.id])
+        return db.query('UPDATE `companies` SET `name` = ?, `size` = ? WHERE (`id` = ?)', [params.name, params.size, params.id])
     }
 
     static delete(params){

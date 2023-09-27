@@ -16,7 +16,7 @@ module.exports = class tags {
     }
 
     static topTags(params){
-        return db.query('SELECT tags.id, tags.name, COUNT(*) as c FROM job_application.tags LEFT JOIN jobs ON jobs.tags LIKE CONCAT(\'%\', tags.name ,\'%\') INNER JOIN interactions ON interactions.job = jobs.id WHERE interactions.user = ? GROUP BY tags.id ORDER BY c DESC', [params.user])
+        return db.query('SELECT tags.id, tags.name, COUNT(*) as c FROM tags LEFT JOIN jobs ON jobs.tags LIKE CONCAT(\'%\', tags.name ,\'%\') INNER JOIN interactions ON interactions.job = jobs.id WHERE interactions.user = ? GROUP BY tags.id ORDER BY c DESC', [params.user])
     }
 
     static post(params){
@@ -24,7 +24,7 @@ module.exports = class tags {
     }
 
     static edit(params){
-        return db.query('UPDATE `job_application`.`tags` SET `name` = ? WHERE (`id` = ?)', [params.name, params.id])
+        return db.query('UPDATE `tags` SET `name` = ? WHERE (`id` = ?)', [params.name, params.id])
     }
 
     static delete(params){
@@ -32,6 +32,6 @@ module.exports = class tags {
     }
 
     static status(params){
-        return db.query('UPDATE `job_application`.`tags` SET `status` = ? WHERE (`id` = ?)', [params.status, params.id])
+        return db.query('UPDATE `tags` SET `status` = ? WHERE (`id` = ?)', [params.status, params.id])
     }
 }

@@ -30,7 +30,7 @@ module.exports = class Applied {
     }
 
     static post(params){
-        return db.query('INSERT INTO `job_application`.`applied` (`job`, `user`, `date`, `proposal`) VALUES (?, ?, ?, ?)', [params.job, params.user, params.date, params.proposal])
+        return db.query('INSERT INTO `applied` (`job`, `user`, `date`, `proposal`) VALUES (?, ?, ?, ?)', [params.job, params.user, params.date, params.proposal])
     }
 
     static edit(params){

@@ -12,7 +12,7 @@ module.exports = class CvLanguages {
     }
 
     static post(params){
-        return db.query('INSERT INTO `job_application`.`cv_languages` (`cv`, `language`) VALUES (?, ?)', [params.cv, params.language])
+        return db.query('INSERT INTO `cv_languages` (`cv`, `language`) VALUES (?, ?)', [params.cv, params.language])
     }
 
     static edit(params){

@@ -11,11 +11,11 @@ module.exports = class Dashboard {
     }
 
     static fetchLineChart(){
-        return db.query('SELECT COUNT(*) as interactions, CAST(createddate as date) as d FROM job_application.interactions GROUP BY CAST(createddate as date) ORDER BY d DESC LIMIT 10')
+        return db.query('SELECT COUNT(*) as interactions, CAST(createddate as date) as d FROM interactions GROUP BY CAST(createddate as date) ORDER BY d DESC LIMIT 10')
     }
 
     static fetchBarChart(){
-        return db.query('SELECT COUNT(*) as applied, date FROM job_application.applied GROUP BY date ORDER BY date DESC LIMIT 10')
+        return db.query('SELECT COUNT(*) as applied, date FROM applied GROUP BY date ORDER BY date DESC LIMIT 10')
     }
 
     static dashboardTransactions(){
