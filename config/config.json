@@ -1,5 +1,5 @@
 {
-  "host": "34.151.72.245",
+  "host": "localhost",
   "user": "developer",
   "password": "Developer@1122",
   "database": "jobsapp"
