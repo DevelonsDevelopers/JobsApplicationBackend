@@ -20,7 +20,7 @@ module.exports = class Country {
     }
 
     static fetchByID(params){
-        return db.query('SELECT companies.id, companies.city, companies.country, companies.name, companies.size, companies.code, companies.phone, companies.email, companies.headquater, companies.type, companies.verified, cities.name as city_name, countries.name as country_name, IFNULL(user_plans.plan, 0) as plan, (SELECT COUNT(*) FROM offers INNER JOIN jobs ON jobs.id = offers.job WHERE jobs.company = companies.id) as sent_offers, (SELECT COUNT(*) FROM applied INNER JOIN jobs ON jobs.id = applied.job WHERE jobs.company = companies.id) as applied FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country LEFT JOIN user_plans ON user_plans.user = companies.id AND user_plans.user_type = \'Provider\' WHERE companies.id = ?', [params.id])
+        return db.query('SELECT companies.id, companies.city, companies.country, companies.name, companies.size, companies.code, companies.phone, companies.email, companies.headquater, companies.type, companies.verified, companies.account, cities.name as city_name, countries.name as country_name, IFNULL(user_plans.plan, 0) as plan, (SELECT COUNT(*) FROM offers INNER JOIN jobs ON jobs.id = offers.job WHERE jobs.company = companies.id) as sent_offers, (SELECT COUNT(*) FROM applied INNER JOIN jobs ON jobs.id = applied.job WHERE jobs.company = companies.id) as applied FROM companies INNER JOIN cities ON cities.id = companies.city INNER JOIN countries ON countries.id = companies.country LEFT JOIN user_plans ON user_plans.user = companies.id AND user_plans.user_type = \'Provider\' WHERE companies.id = ?', [params.id])
     }
 
     static post(params){
