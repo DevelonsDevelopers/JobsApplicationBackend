@@ -3,9 +3,9 @@ const cvCourseController = require('../controllers/cvCourse')
 
 const router = express.Router();
 
-router.get('/cvCourse/all', cvCourseController.getAllCourse);
-router.post('/cvCourse/create', cvCourseController.createCourse);
-router.put('/cvCourse/update', cvCourseController.updateCourse);
-router.delete('/cvCourse/delete', cvCourseController.deleteCourse);
+router.get('/api/cvCourse/all', cvCourseController.getAllCourse);
+router.post('/api/cvCourse/create', cvCourseController.createCourse);
+router.put('/api/cvCourse/update', cvCourseController.updateCourse);
+router.delete('/api/cvCourse/delete', cvCourseController.deleteCourse);
 
 module.exports = router;

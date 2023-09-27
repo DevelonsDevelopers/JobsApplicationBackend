@@ -3,20 +3,20 @@ const jobsController = require('../controllers/jobs')
 
 const router = express.Router();
 
-router.post('/jobs/all', jobsController.getAllJobs);
-router.post('/jobs/recommended', jobsController.getRecommendedJobs)
-router.get('/jobs/recent', jobsController.getRecentJobs);
-router.post('/jobs/search', jobsController.getSearch);
-router.post('/jobs/get', jobsController.getJobByID);
-router.post('/jobs/category', jobsController.getJobByCategory);
-router.post('/jobs/country', jobsController.getJobByCountry);
-router.post('/jobs/city', jobsController.getJobByCity);
-router.post('/jobs/company', jobsController.getJobByCompany);
-router.post('/jobs/provider', jobsController.getJobsByProvider);
-router.post('/jobs/providerFeatured', jobsController.getJobsByProviderFeatured);
-router.post('/jobs/create', jobsController.createJob);
-router.put('/jobs/status', jobsController.statusJob);
-router.put('/jobs/update', jobsController.updateJob);
-router.delete('/jobs/delete', jobsController.deleteJob);
+router.post('/api/jobs/all', jobsController.getAllJobs);
+router.post('/api/jobs/recommended', jobsController.getRecommendedJobs)
+router.get('/api/jobs/recent', jobsController.getRecentJobs);
+router.post('/api/jobs/search', jobsController.getSearch);
+router.post('/api/jobs/get', jobsController.getJobByID);
+router.post('/api/jobs/category', jobsController.getJobByCategory);
+router.post('/api/jobs/country', jobsController.getJobByCountry);
+router.post('/api/jobs/city', jobsController.getJobByCity);
+router.post('/api/jobs/company', jobsController.getJobByCompany);
+router.post('/api/jobs/provider', jobsController.getJobsByProvider);
+router.post('/api/jobs/providerFeatured', jobsController.getJobsByProviderFeatured);
+router.post('/api/jobs/create', jobsController.createJob);
+router.put('/api/jobs/status', jobsController.statusJob);
+router.put('/api/jobs/update', jobsController.updateJob);
+router.delete('/api/jobs/delete', jobsController.deleteJob);
 
 module.exports = router;

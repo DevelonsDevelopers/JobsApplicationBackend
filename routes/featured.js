@@ -3,11 +3,11 @@ const featuredController = require('../controllers/featured')
 
 const router = express.Router();
 
-router.get('/featured/all', featuredController.getAllFeatured);
-router.post('/featured/get', featuredController.getFeaturedByID);
-router.post('/featured/create', featuredController.createFeatured);
-router.put('/featured/status', featuredController.statusFeatured);
-router.put('/featured/update', featuredController.updateFeatured);
-router.delete('/featured/:delete', featuredController.deleteFeatured);
+router.get('/api/featured/all', featuredController.getAllFeatured);
+router.post('/api/featured/get', featuredController.getFeaturedByID);
+router.post('/api/featured/create', featuredController.createFeatured);
+router.put('/api/featured/status', featuredController.statusFeatured);
+router.put('/api/featured/update', featuredController.updateFeatured);
+router.delete('/api/featured/:delete', featuredController.deleteFeatured);
 
 module.exports = router;

@@ -3,9 +3,9 @@ const cvLanguageController = require('../controllers/cvLanguages')
 
 const router = express.Router();
 
-router.get('/cvLanguage/all', cvLanguageController.getLanguages);
-router.post('/cvLanguage/create', cvLanguageController.createLanguage);
-router.put('/cvLanguage/update', cvLanguageController.updateLanguage);
-router.delete('/cvLanguage/delete', cvLanguageController.deleteLanguage);
+router.get('/api/cvLanguage/all', cvLanguageController.getLanguages);
+router.post('/api/cvLanguage/create', cvLanguageController.createLanguage);
+router.put('/api/cvLanguage/update', cvLanguageController.updateLanguage);
+router.delete('/api/cvLanguage/delete', cvLanguageController.deleteLanguage);
 
 module.exports = router;

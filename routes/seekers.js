@@ -3,16 +3,16 @@ const seekersController = require('../controllers/seekers')
 
 const router = express.Router();
 
-router.get('/seekers/all', seekersController.getAllSeeker);
-router.post('/seekers/recommended', seekersController.getRecommendedSeekers)
-router.post('/seekers/get', seekersController.getSeekerByID);
-router.post('/seekers/email', seekersController.getSeekerByEmail);
-router.post('/seekers/check', seekersController.checkSeeker);
-router.post('/seekers/create', seekersController.createSeeker);
-router.put('/seekers/status', seekersController.statusSeeker);
-router.put('/seekers/role', seekersController.roleSeeker);
-router.put('/seekers/update', seekersController.updateSeeker);
-router.put('/seekers/verify', seekersController.verifySeeker);
-router.delete('/seekers/delete', seekersController.deleteSeeker);
+router.get('/api/seekers/all', seekersController.getAllSeeker);
+router.post('/api/seekers/recommended', seekersController.getRecommendedSeekers)
+router.post('/api/seekers/get', seekersController.getSeekerByID);
+router.post('/api/seekers/email', seekersController.getSeekerByEmail);
+router.post('/api/seekers/check', seekersController.checkSeeker);
+router.post('/api/seekers/create', seekersController.createSeeker);
+router.put('/api/seekers/status', seekersController.statusSeeker);
+router.put('/api/seekers/role', seekersController.roleSeeker);
+router.put('/api/seekers/update', seekersController.updateSeeker);
+router.put('/api/seekers/verify', seekersController.verifySeeker);
+router.delete('/api/seekers/delete', seekersController.deleteSeeker);
 
 module.exports = router;

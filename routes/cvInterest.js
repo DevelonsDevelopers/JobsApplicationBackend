@@ -3,9 +3,9 @@ const cvInterestController = require('../controllers/cvInterest')
 
 const router = express.Router();
 
-router.get('/cvInterest/all', cvInterestController.getAllInterests);
-router.post('/cvInterest/create', cvInterestController.createInterest);
-router.put('/cvInterest/update', cvInterestController.updateInterest);
-router.delete('/cvInterest/delete', cvInterestController.deleteInterest);
+router.get('/api/cvInterest/all', cvInterestController.getAllInterests);
+router.post('/api/cvInterest/create', cvInterestController.createInterest);
+router.put('/api/cvInterest/update', cvInterestController.updateInterest);
+router.delete('/api/cvInterest/delete', cvInterestController.deleteInterest);
 
 module.exports = router;
