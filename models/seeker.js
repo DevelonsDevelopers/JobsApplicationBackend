@@ -31,7 +31,7 @@ module.exports = class Seeker {
     }
 
     static post(params){
-        return db.query('INSERT INTO `seekers` (`name`, `username`, `email`, `password`, `phone`, `address`, `dob`, `gender`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.username, params.email, params.password, params.phone, params.address, params.dob, params.gender])
+        return db.query('INSERT INTO `seekers` (`name`, `username`, `email`, `password`, `phone`, `address`, `dob`, `gender`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.username, params.email, params.password, params.phone, params.address, params.dob, params.gender, params.type])
     }
 
     static edit(params){

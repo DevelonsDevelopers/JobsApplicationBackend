@@ -24,7 +24,7 @@ module.exports = class Country {
     }
 
     static post(params){
-        return db.query('INSERT INTO `companies` (`name`, `size`, `city`, `country`, `phone`, `email`, `password`, `headquater`, `type`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.size, params.city, params.country, params.phone, params.email, params.password, params.headquater, params.type])
+        return db.query('INSERT INTO `companies` (`name`, `size`, `city`, `country`, `phone`, `email`, `password`, `headquater`, `type`, `account`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)', [params.name, params.size, params.city, params.country, params.phone, params.email, params.password, params.headquater, params.type, params.account])
     }
 
     static edit(params){
