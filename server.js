@@ -53,7 +53,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: true}))
 app.use(expressSession({secret: 'JOBAPI', resave: false, saveUninitialized: false}))
 
-app.post("/create-payment-intent", async (req, res) => {
+app.post("/api/create-payment-intent", async (req, res) => {
     const price = req.body.price;
     try {
         const paymentIntent = await stripe.paymentIntents.create({
