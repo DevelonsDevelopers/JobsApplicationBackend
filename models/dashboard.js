@@ -18,7 +18,7 @@ module.exports = class Dashboard {
         return db.query('SELECT COUNT(*) as interactions, CAST(createddate as date) as d FROM interactions GROUP BY CAST(createddate as date) ORDER BY d DESC LIMIT 10')
     }
 
-    static fetchCompanyLineChart(){
+    static fetchCompanyLineChart(params){
         return db.query('SELECT COUNT(*) as interactions, CAST(createddate as date) as d FROM interactions INNER JOIN jobs ON interactions.job = jobs.id WHERE jobs.company = ? GROUP BY CAST(createddate as date) ORDER BY d DESC LIMIT 10', [params.company])
     }
 
