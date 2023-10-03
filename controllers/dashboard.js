@@ -50,7 +50,7 @@ exports.getLineChart = async (req, res, next) => {
 
 exports.getCompanyLineChart = async (req, res, next) => {
     try {
-        const [dashboard] = await Dashboard.fetchCompanyLineChart()
+        const [dashboard] = await Dashboard.fetchCompanyLineChart(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Dashboard data fetched successfully", data: dashboard});
     } catch (error) {
         if (!error.statusCode){
