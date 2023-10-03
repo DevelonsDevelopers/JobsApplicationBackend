@@ -7,7 +7,7 @@ module.exports = class Dashboard {
     }
 
     static fetchCompany(params){
-        return db.query('SELECT * FROM (SELECT COUNT(*) as jobs FROM jobs WHERE jobs.company = ?) a, (SELECT COUNT(*) as applied FROM applied INNER JOIN jobs ON jobs.id = applied.job WHERE jobs.company = ?) f, (SELECT COUNT(*) as offers FROM offers INNER JOIN jobs ON jobs.id = offers.job WHERE jobs.company = ?) g', [params.company])
+        return db.query('SELECT * FROM (SELECT COUNT(*) as jobs FROM jobs WHERE jobs.company = ?) a, (SELECT COUNT(*) as applied FROM applied INNER JOIN jobs ON jobs.id = applied.job WHERE jobs.company = ?) f, (SELECT COUNT(*) as offers FROM offers INNER JOIN jobs ON jobs.id = offers.job WHERE jobs.company = ?) g', [params.company, params.company, params.company])
     }
 
     static fetchPieChart(){
