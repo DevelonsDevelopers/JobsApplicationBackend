@@ -10,12 +10,14 @@ exports.register = async (req, res, next) => {
                 const [user] = await CompanyAuth.register(req.body)
                 if (user) {
                     res.status(200).json({"responseCode": 200, "message": "Registered Successfully", data: user});
+                } else {
+                    res.status(200).json({"responseCode": 207, "message": "Unable to Register!", data: null});
                 }
             } else {
-                res.status(200).json({"responseCode": 200, "message": "Email already exist", data: null});
+                res.status(200).json({"responseCode": 205, "message": "Email already exist", data: null});
             }
         } else {
-            res.status(200).json({"responseCode": 200, "message": "Company already exist", data: null});
+            res.status(200).json({"responseCode": 206, "message": "Company already exist", data: null});
         }
     } catch (error) {
         if (!error.statusCode) {
@@ -35,7 +37,7 @@ exports.google = async (req, res, next) => {
             if (user) {
                 res.status(200).json({"responseCode": 200, "message": "Google Registered Successfully", data: user});
             } else {
-                res.status(200).json({"responseCode": 200, "message": "Failed To Register Google", data: user});
+                res.status(200).json({"responseCode": 207, "message": "Failed To Register Google", data: user});
             }
         } else {
             bcrypt.compare(req.body.password, checkEmail.password, (err, response) => {
@@ -48,7 +50,7 @@ exports.google = async (req, res, next) => {
                 if (response === true) {
                     res.send({ responseCode: 200, status: "OK", message: "Google Login Successful", data: checkEmail})
                 } else {
-                    res.send({ responseCode: 206, status: "FAILED", message: "User may already registered with email", data: null})
+                    res.send({ responseCode: 206, status: "FAILED", message: "User may already registered with this email", data: null})
                 }
             })
         }

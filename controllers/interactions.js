@@ -36,6 +36,18 @@ exports.getInteractionByJob = async (req, res, next) => {
     }
 }
 
+exports.getInteractionByCompany = async (req, res, next) => {
+    try {
+        const [interaction] = await Interaction.fetchByCompany(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Interactions fetched successfully", data: interaction});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.getInteractionByUser = async (req, res, next) => {
     try {
         const [interaction] = await Interaction.fetchByUser(req.body)

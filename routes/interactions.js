@@ -6,6 +6,7 @@ const router = express.Router();
 router.get('/api/interactions/all', interactionController.getAllInteractions);
 router.post('/api/interactions/get', interactionController.getInteractionByID);
 router.post('/api/interactions/job', interactionController.getInteractionByJob);
+router.post('/api/interactions/company', interactionController.getInteractionByCompany);
 router.post('/api/interactions/user', interactionController.getInteractionByUser);
 router.post('/api/interactions/type', interactionController.getInteractionByType);
 router.post('/api/interactions/create', interactionController.createInteraction);

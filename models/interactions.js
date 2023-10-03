@@ -20,6 +20,10 @@ module.exports = class interactions {
         return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.id = ?', [params.id])
     }
 
+    static fetchByCompany(params){
+        return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE jobs.company = ?', [params.company])
+    }
+
     static fetchByJob(params){
         return db.query('SELECT interactions.*, jobs.id as job, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, seekers.name, seekers.username, seekers.email, seekers.phone FROM interactions INNER JOIN jobs ON jobs.id = interactions.job INNER JOIN seekers ON seekers.id = interactions.user WHERE interactions.job = ?', [params.job])
     }
