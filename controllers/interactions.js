@@ -14,7 +14,7 @@ exports.getAllInteractions = async (req, res, next) => {
 
 exports.getInteractionByID = async (req, res, next) => {
     try {
-        const [interaction] = await Interaction.fetchByID(req.body)
+        const [[interaction]] = await Interaction.fetchByID(req.body)
         res.status(200).json({ "responseCode": 200, "message": "Interaction fetched successfully", data: interaction});
     } catch (error) {
         if (!error.statusCode){
