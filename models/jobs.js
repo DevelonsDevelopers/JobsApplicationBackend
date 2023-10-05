@@ -77,6 +77,7 @@ module.exports = class jobs {
         } else if (isType==="true"){
             finalQuery = finalQuery + typeFilter
         }
+        console.log(finalQuery)
         return db.query(finalQuery)
     }
 
