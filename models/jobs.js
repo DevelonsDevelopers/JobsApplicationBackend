@@ -57,12 +57,12 @@ module.exports = class jobs {
         const isSalary = params.isSalary;
         const isType = params.isType;
         const query = `SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.created, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name FROM jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city INNER JOIN companies ON companies.id = jobs.company WHERE jobs.title LIKE '%${search}%'`
-        const countryFilter = ` AND WHERE jobs.country IN ( ${country} ) `
-        const categoryFilter = ` AND WHERE jobs.category IN ( ${category} ) `
-        const cityFilter = ` AND WHERE jobs.city IN ( ${city} ) `
-        const companyFilter = ` AND WHERE jobs.company IN ( ${company} ) `
-        const salaryFilter = ` AND WHERE jobs.salary BETWEEN ${salaryStart} AND ${salaryEnd} `
-        const typeFilter = ` AND WHERE jobs.type IN ( ${type} ) `
+        const countryFilter = ` AND jobs.country IN ( ${country} ) `
+        const categoryFilter = ` AND jobs.category IN ( ${category} ) `
+        const cityFilter = ` AND jobs.city IN ( ${city} ) `
+        const companyFilter = ` AND jobs.company IN ( ${company} ) `
+        const salaryFilter = ` AND jobs.salary BETWEEN ${salaryStart} AND ${salaryEnd} `
+        const typeFilter = ` AND jobs.type IN ( ${type} ) `
         var finalQuery = query;
         if (isCountry==="true"){
             finalQuery  = finalQuery + countryFilter
@@ -77,7 +77,6 @@ module.exports = class jobs {
         } else if (isType==="true"){
             finalQuery = finalQuery + typeFilter
         }
-        console.log(finalQuery)
         return db.query(finalQuery)
     }
 
