@@ -17,7 +17,7 @@ module.exports = class ApiJobs {
     }
 
     static post(params){
-        return db.query('INSERT INTO `api_jobs` (`title`, `description`, `locations`, `site`, `date`, `company`, `salary`) VALUES (?, ?, ?, ?, ?, ?, ?)', [params.title, params.description, params.locations, params.site, params.date, params.company, params.salary])
+        return db.query('INSERT INTO `api_jobs` (`title`, `description`, `locations`, `site`, `date`, `company`, `salary`, `url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [params.title, params.description, params.locations, params.site, params.date, params.company, params.salary, params.url])
     }
 }
 
