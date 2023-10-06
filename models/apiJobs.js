@@ -16,6 +16,10 @@ module.exports = class ApiJobs {
         return db.query('SELECT * FROM api_jobs')
     }
 
+    static fetchByID(params){
+        return db.query('SELECT * FROM api_jobs WHERE api_jobs.id = ?', [params.id])
+    }
+
     static post(params){
         return db.query('INSERT INTO `api_jobs` (`title`, `description`, `locations`, `site`, `date`, `company`, `salary`, `url`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)', [params.title, params.description, params.locations, params.site, params.date, params.company, params.salary, params.url])
     }
