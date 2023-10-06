@@ -39,6 +39,7 @@ const coverRouter = require('./routes/cover')
 const offerRouter = require('./routes/offers')
 const paymentRouter = require('./routes/payment')
 const userPlansRouter = require('./routes/userPlans')
+const apiJobsRouter = require('./routes/apiJobs')
 
 const app = express();
 
@@ -112,6 +113,7 @@ app.use(coverRouter)
 app.use(offerRouter)
 app.use(paymentRouter)
 app.use(userPlansRouter)
+app.use(apiJobsRouter)
 
 app.use(errorController.get404)
 app.use(errorController.get500)
