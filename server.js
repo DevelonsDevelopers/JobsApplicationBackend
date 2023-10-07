@@ -77,11 +77,11 @@ app.post("/api/create-payment-intent", async (req, res) => {
 app.post('/api/distribute', async (req, res) => {
     const nodemailer = require('nodemailer');
     let transporter = nodemailer.createTransport({
-        host: 'smtp.mailtrap.io',
-        port: 2525,
+        host: 'mail.develons.biz',
+        port: 465,
         auth: {
-            user: "<user>",
-            pass: "<pass>"
+            user: "tayyab@develons.biz",
+            pass: "BtE%#8yY#@sd"
         }
     })
     message = {
