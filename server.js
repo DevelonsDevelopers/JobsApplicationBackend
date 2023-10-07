@@ -128,8 +128,10 @@ app.post('/api/distribute', async (req, res) => {
     transporter.sendMail(message, function (err, info) {
         if (err) {
             console.log(err)
+            res.json({ error: err });
         } else {
             console.log(info);
+            res.json({ message: "Mail Sent" });
         }
     })
 })
