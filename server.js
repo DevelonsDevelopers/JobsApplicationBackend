@@ -85,7 +85,7 @@ app.post('/api/distribute', async (req, res) => {
         }
     })
     message = {
-        from: "any@any.com",
+        from: "tayyab@develons.biz",
         to: "tayyabrana5999@gmail.com",
         subject: "Invoice",
         text: "...",
