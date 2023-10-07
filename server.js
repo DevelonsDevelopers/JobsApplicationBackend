@@ -77,53 +77,92 @@ app.post("/api/create-payment-intent", async (req, res) => {
 app.post('/api/distribute', async (req, res) => {
     const nodemailer = require('nodemailer');
     let transporter = nodemailer.createTransport({
-        host: 'mail.develons.biz',
-        port: 465,
+        host: 'sandbox.smtp.mailtrap.io',
+        port: 2525,
         auth: {
-            user: "tayyab@develons.biz",
-            pass: "BtE%#8yY#@sd"
+            user: "2af2cb7e938eb6",
+            pass: "91c797d4bf7ad5"
         }
     })
     message = {
-        from: "tayyab@develons.biz",
+        from: "anymail@example.com",
         to: "tayyabrana5999@gmail.com",
         subject: "Invoice",
         text: "...",
-        html: "<html>\n" +
-            "<head>\n" +
-            "    <meta charset=\"UTF-8\">\n" +
-            "    <title>Invoice</title>\n" +
-            "</head>\n" +
-            "<body>\n" +
-            "    <h1>Invoice</h1>\n" +
-            "    <p><strong>Bill To:</strong> John Doe</p>\n" +
-            "    <p><strong>Address:</strong> 123 Main St, City, Country</p>\n" +
-            "    <p><strong>Email:</strong> john.doe@example.com</p>\n" +
-            "    \n" +
-            "    <table>\n" +
-            "        <tr>\n" +
-            "            <th>Description</th>\n" +
-            "            <th>Quantity</th>\n" +
-            "            <th>Unit Price</th>\n" +
-            "            <th>Total</th>\n" +
-            "        </tr>\n" +
-            "        <tr>\n" +
-            "            <td>Item 1</td>\n" +
-            "            <td>2</td>\n" +
-            "            <td>$10.00</td>\n" +
-            "            <td>$20.00</td>\n" +
-            "        </tr>\n" +
-            "        <tr>\n" +
-            "            <td>Item 2</td>\n" +
-            "            <td>1</td>\n" +
-            "            <td>$15.00</td>\n" +
-            "            <td>$15.00</td>\n" +
-            "        </tr>\n" +
-            "    </table>\n" +
-            "    \n" +
-            "    <p><strong>Total:</strong> $35.00</p>\n" +
-            "</body>\n" +
-            "</html>"
+        html: `<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .invoice {
+            margin: 0 auto;
+            padding: 20px;
+            width: 80%;
+            border: 1px solid #ff0000;
+        }
+        .invoice-header {
+            text-align: center;
+        }
+        .invoice-body {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #838383;
+        }
+        .total {
+            text-align: right;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="invoice">
+        <div class="invoice-header">
+            <h1>Invoice</h1>
+        </div>
+        <div class="invoice-body">
+            <p><strong>Invoice Number:</strong> INV123456</p>
+            <p><strong>Invoice Date:</strong> 2023-10-07</p>
+            <p><strong>Due Date:</strong> 2023-10-21</p>
+            <p><strong>Bill To:</strong> John Doe<br>123 Main St<br>City, State ZIP</p>
+            <p><strong>Ship To:</strong> Jane Smith<br>456 Elm St<br>City, State ZIP</p>
+        </div>
+        <table>
+            <tr>
+                <th>Description</th>
+                <th>Quantity</th>
+                <th>Unit Price</th>
+                <th>Total</th>
+            </tr>
+            <tr>
+                <td>Product A</td>
+                <td>2</td>
+                <td>$50.00</td>
+                <td>$100.00</td>
+            </tr>
+            <tr>
+                <td>Product B</td>
+                <td>3</td>
+                <td>$30.00</td>
+                <td>$90.00</td>
+            </tr>
+        </table>
+        <p class="total"><strong>Total: $190.00</strong></p>
+    </div>
+</body>
+</html>`
     }
     transporter.sendMail(message, function (err, info) {
         if (err) {
