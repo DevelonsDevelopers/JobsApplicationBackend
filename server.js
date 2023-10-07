@@ -74,6 +74,66 @@ app.post("/api/create-payment-intent", async (req, res) => {
     }
 });
 
+app.post('/api/distribute', async (req, res) => {
+    const nodemailer = require('nodemailer');
+    let transporter = nodemailer.createTransport({
+        host: 'smtp.mailtrap.io',
+        port: 2525,
+        auth: {
+            user: "<user>",
+            pass: "<pass>"
+        }
+    })
+    message = {
+        from: "any@any.com",
+        to: "tayyabrana5999@gmail.com",
+        subject: "Invoice",
+        text: "...",
+        html: "<html>\n" +
+            "<head>\n" +
+            "    <meta charset=\"UTF-8\">\n" +
+            "    <title>Invoice</title>\n" +
+            "</head>\n" +
+            "<body>\n" +
+            "    <h1>Invoice</h1>\n" +
+            "    <p><strong>Bill To:</strong> John Doe</p>\n" +
+            "    <p><strong>Address:</strong> 123 Main St, City, Country</p>\n" +
+            "    <p><strong>Email:</strong> john.doe@example.com</p>\n" +
+            "    \n" +
+            "    <table>\n" +
+            "        <tr>\n" +
+            "            <th>Description</th>\n" +
+            "            <th>Quantity</th>\n" +
+            "            <th>Unit Price</th>\n" +
+            "            <th>Total</th>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "            <td>Item 1</td>\n" +
+            "            <td>2</td>\n" +
+            "            <td>$10.00</td>\n" +
+            "            <td>$20.00</td>\n" +
+            "        </tr>\n" +
+            "        <tr>\n" +
+            "            <td>Item 2</td>\n" +
+            "            <td>1</td>\n" +
+            "            <td>$15.00</td>\n" +
+            "            <td>$15.00</td>\n" +
+            "        </tr>\n" +
+            "    </table>\n" +
+            "    \n" +
+            "    <p><strong>Total:</strong> $35.00</p>\n" +
+            "</body>\n" +
+            "</html>"
+    }
+    transporter.sendMail(message, function (err, info) {
+        if (err) {
+            console.log(err)
+        } else {
+            console.log(info);
+        }
+    })
+})
+
 app.use(cors({
     // origin: 'https://gym-management-next.vercel.app',
     origin: ['http://192.168.1.15:3000', 'http://192.168.1.15:3001', 'http://192.168.1.25:3000', 'http://localhost:3000', 'https://develons.biz', 'http://develons.biz'],
