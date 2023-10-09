@@ -66,15 +66,20 @@ module.exports = class jobs {
         var finalQuery = query;
         if (isCountry==="true"){
             finalQuery  = finalQuery + countryFilter
-        } else if (isCategory==="true"){
+        }
+        if (isCategory==="true"){
             finalQuery = finalQuery + categoryFilter
-        } else if (isCity==="true"){
+        }
+        if (isCity==="true"){
             finalQuery = finalQuery + cityFilter
-        } else if (isCompany==="true"){
+        }
+        if (isCompany==="true"){
             finalQuery = finalQuery + companyFilter
-        } else if (isSalary==="true"){
+        }
+        if (isSalary==="true"){
             finalQuery = finalQuery + salaryFilter
-        } else if (isType==="true"){
+        }
+        if (isType==="true"){
             finalQuery = finalQuery + typeFilter
         }
         return db.query(finalQuery)
