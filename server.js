@@ -40,6 +40,7 @@ const offerRouter = require('./routes/offers')
 const paymentRouter = require('./routes/payment')
 const userPlansRouter = require('./routes/userPlans')
 const apiJobsRouter = require('./routes/apiJobs')
+const jobBanksRouter = require('./routes/jobBanks')
 
 const app = express();
 
@@ -280,6 +281,7 @@ app.use(offerRouter)
 app.use(paymentRouter)
 app.use(userPlansRouter)
 app.use(apiJobsRouter)
+app.use(jobBanksRouter)
 
 app.use(errorController.get404)
 app.use(errorController.get500)
