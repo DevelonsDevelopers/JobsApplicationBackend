@@ -16,8 +16,8 @@ module.exports = class ApiJobs {
         return db.query('SELECT * FROM api_jobs')
     }
 
-    static fetchAllJobs(){
-        return db.query('SELECT api_jobs.id, api_jobs.locations, \'-\', \'-\', api_jobs.company, api_jobs.title, \'-\', \'-\', api_jobs.salary, api_jobs.description, api_jobs.url, \'-\', \'-\', \'-\', \'-\', \'-\', \'-\', \'-\', api_jobs.date, \'-\', \'-\', api_jobs.company, \'-\', api_jobs.locations, \'-\', \'-\', api_jobs.created FROM api_jobs')
+    static fetchAllJobs(params){
+        return db.query(`SELECT api_jobs.id, api_jobs.locations, '-', '-', api_jobs.company, api_jobs.title, '-', '-', api_jobs.salary, api_jobs.description, api_jobs.url, '-', '-', '-', '-', '-', '-', '-', api_jobs.date, '-', '-', api_jobs.company, '-', api_jobs.locations, '-', '-', api_jobs.created FROM api_jobs WHERE api_jobs.title LIKE '%${params.search}%'`)
     }
 
     static fetchByID(params){

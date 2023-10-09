@@ -3,7 +3,7 @@ const apiJobsController = require('../controllers/apiJobs')
 const router = express.Router();
 
 router.get('/api/apiJobs/all', apiJobsController.getAllApiJobs);
-router.get('/api/apiJobs/jobs', apiJobsController.getAllApiJobsData)
+router.post('/api/apiJobs/jobs', apiJobsController.getAllApiJobsData)
 router.post('/api/apiJobs/job', apiJobsController.getJob)
 router.post('/api/apiJobs/post', apiJobsController.addApiJobs);
 

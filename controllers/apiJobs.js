@@ -14,7 +14,7 @@ exports.getAllApiJobs = async (req, res, next) => {
 
 exports.getAllApiJobsData = async (req, res, next) => {
     try {
-        const [apiJobs] = await ApiJobs.fetchAllJobs()
+        const [apiJobs] = await ApiJobs.fetchAllJobs(req.body)
         res.status(200).json({ "responseCode": 200, "message": "API Jobs fetched successfully", data: apiJobs});
     } catch (error) {
         if (!error.statusCode){
