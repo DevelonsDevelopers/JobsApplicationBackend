@@ -20,7 +20,7 @@ module.exports = class SeekerAuthentication {
     }
 
     static checkEmail(params){
-        return db.query('SELECT * FROM seekers WHERE email = ?', [params.email])
+        return db.query('SELECT seekers.*, ifnull(user_plans.plan, 0) as plan FROM seekers LEFT JOIN user_plans ON seekers.id = user_plans.user AND user_type = "Seeker" WHERE email = ?', [params.email])
     }
 
     static register(params){
