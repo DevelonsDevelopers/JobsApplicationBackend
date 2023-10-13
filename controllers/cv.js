@@ -27,14 +27,14 @@ exports.getCVByID = async (req, res, next) => {
         const [cv_education] = await CVEducation.fetchAll(cv.id)
         const [cv_interest] = await CVInterest.fetchAll(cv.id)
         const [cv_languages] = await CVLanguages.fetchAll(cv.id)
-        const [cv_resumes] = await CVResume.fetchAll(cv.id)
+        // const [cv_resumes] = await CVResume.fetchAll(cv.id)
         const [cv_skills] = await CVSkills.fetchAll(cv.id)
         cv.careers = cv_career;
         cv.courses = cv_course;
         cv.educations = cv_education;
         cv.interests = cv_interest;
         cv.languages = cv_languages;
-        cv.resumes = cv_resumes;
+        // cv.resumes = cv_resumes;
         cv.skills = cv_skills;
         res.status(200).json({ "responseCode": 200, "message": "Categories fetched successfully", data: cv});
     } catch (error) {
@@ -96,11 +96,11 @@ exports.CheckCV = async (req, res, next) => {
                     if (cv_education.length > 0) {
                         if (cv_interest.length > 0) {
                             if (cv_languages.length > 0) {
-                                if (cv_resumes.length > 0) {
+                                // if (cv_resumes.length > 0) {
                                     if (cv_skills.length > 0) {
                                         status = "complete"
                                     }
-                                }
+                                // }
                             }
                         }
                     }
