@@ -4,6 +4,7 @@ const jobsController = require('../controllers/jobs')
 const router = express.Router();
 
 router.post('/api/jobs/all', jobsController.getAllJobs);
+router.post('/api/jobs/jobs', jobsController.getJobs);
 router.post('/api/jobs/recommended', jobsController.getRecommendedJobs)
 router.get('/api/jobs/recent', jobsController.getRecentJobs);
 router.post('/api/jobs/search', jobsController.getSearch);

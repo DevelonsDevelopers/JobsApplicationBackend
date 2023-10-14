@@ -12,6 +12,18 @@ exports.getAllJobs = async (req, res, next) => {
     }
 }
 
+exports.getJobs = async (req, res, next) => {
+    try {
+        const [jobs] = await Job.fetchJobs(req.body)
+        res.status(200).json({ "responseCode": 200, "message": "Jobs fetched successfully", data: jobs});
+    } catch (error) {
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
+    }
+}
+
 exports.getRecentJobs = async (req, res, next) => {
     try {
         const [jobs] = await Job.fetchRecent()
