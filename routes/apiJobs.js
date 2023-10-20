@@ -7,5 +7,7 @@ router.post('/api/apiJobs/jobs', apiJobsController.getAllApiJobsData)
 router.post('/api/apiJobs/recent', apiJobsController.getRecentApiJobsData)
 router.post('/api/apiJobs/job', apiJobsController.getJob)
 router.post('/api/apiJobs/post', apiJobsController.addApiJobs);
+router.get('/api/apiJobs/careerAustralia', apiJobsController.australiaJobs)
+router.get('/api/apiJobs/careerNewZealand', apiJobsController.newzealandJobs)
 
 module.exports = router;
