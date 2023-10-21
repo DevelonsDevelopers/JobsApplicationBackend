@@ -1,4 +1,3 @@
-import moment from 'moment'
 
 export default function (
     {
@@ -14,7 +13,6 @@ export default function (
         courses,
         interests
     }) {
-    const today = new Date();
     return `
 <!DOCTYPE html>
 <html lang="en">
