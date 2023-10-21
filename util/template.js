@@ -1,5 +1,5 @@
 
-export default function (
+exports.template = function (
     {
         name,
         address,

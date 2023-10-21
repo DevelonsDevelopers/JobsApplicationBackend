@@ -41,7 +41,7 @@ const paymentRouter = require('./routes/payment')
 const userPlansRouter = require('./routes/userPlans')
 const apiJobsRouter = require('./routes/apiJobs')
 const jobBanksRouter = require('./routes/jobBanks')
-const template = require("./util/template");
+const {template} = require("./util/template");
 
 const app = express();
 
