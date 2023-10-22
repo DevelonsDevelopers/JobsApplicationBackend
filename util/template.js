@@ -91,7 +91,7 @@ function template (
     <center>
         <div style="grid-template-columns: repeat(3,minmax(0, 1fr)); display: grid;">
         ${skills.map((value) => (
-        <h4>${value.skill}</h4>
+        `<h4>${value.skill}</h4>`
     ))}
         </div>
     </center>
@@ -100,7 +100,7 @@ function template (
     <hr>
     <div>
     ${careers.map((value) => (
-        <div>
+        `<div>
             <div style="display: flex;gap: 20px;">
                 <h3>${value.job}</h3>
                 <h3>|</h3>
@@ -117,7 +117,7 @@ function template (
                 <h3>${value.address}</h3>
             </div>
             <h3 style="text-align: right;">Phone: ${value.phone}</h3>
-        </div>
+        </div>`
     ))}
         <hr>
     </div>
@@ -125,7 +125,7 @@ function template (
     <hr>
     <div>
         ${educations.map((value) => (
-        <div>
+        `<div>
             <div style="display: flex;gap: 20px;">
                 <h3>${value.qualification}</h3>
                 <h3>|</h3>
@@ -133,7 +133,7 @@ function template (
             </div>
 
             <h3 style="text-align: right;">${value.institute}</h3>
-        </div>
+        </div>`
     ))}
         <hr>
     </div>
@@ -141,7 +141,7 @@ function template (
     <hr>
     <div>
     ${courses.map((value) => (
-        <div>
+        `<div>
             <div style="display: flex;gap: 20px;">
                 <h3>${value.course}</h3>
                 <h3>|</h3>
@@ -149,7 +149,7 @@ function template (
             </div>
 
             <h3 style="text-align: right;">${value.institute}</h3>
-        </div>
+        </div>`
     ))}
         
         <hr>
@@ -159,7 +159,7 @@ function template (
     <center>
         <div style="grid-template-columns: repeat(3,minmax(0, 1fr)); display: grid;">
         ${interests.map((value) => (
-        <h4>${value.interest}</h4>
+        `<h4>${value.interest}</h4>`
     ))}
             
 
