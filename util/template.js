@@ -1,5 +1,5 @@
 
-exports.template = function (
+function template (
     {
         name,
         address,
@@ -173,3 +173,5 @@ exports.template = function (
 </html>`
         ;
 };
+
+module.exports = { template }
