@@ -19,66 +19,79 @@ function template(
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Curriculum Vitae</title>
 </head>
-<style>
-    @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,400;1,100;1,200;1,300&display=swap');
 
-    * {
-        font-family: 'Raleway', sans-serif;
-    }
-</style>
+<body
+    style="font-family: 'Poppins', sans-serif; background-color: #f4f4f4; display: flex; justify-content: center; align-items: center; min-height: 100vh;">
 
-<body style="padding: 4%;">
-    <center>
-        <h5>${name} </h5>
-        <div style="display: flex;margin-top: -20px;margin-left: 27%;">
-            <h5>${phone}</h5>
-            <h5 style="margin-left: 9%;">${email}</h5>
+    <div 
+        style="margin: 0 auto; text-align: center; max-width: 500px; width: 100%; padding: 3rem; border: 1px solid #e1e1e1; border-radius: 20px; background-color: white; box-shadow: 0 0 20px rgba(0, 0, 0, 0.1); margin-bottom: 10px;">
+        <h4 class="name-heading" style="text-align: center;  font-weight: 600; color: #333333;">${name}
+        </h4>
+        <h4 class="role-heading"
+            style="text-align: center; font-size: 18px; font-weight: 400; margin-bottom: 2rem; color: #333333; letter-spacing: 5px;">
+            ${role}</h4>
+        <div class="institute-details">
+            <h5>${phone} | ${email}</h5>
+            <h5>${address}</h5>
         </div>
-    </center>
-    <h5>Personal Statment :</h5>
-    <p>${intro}</p>
-    <h5>Work Experience :</h5>
-    ${careers.map((value) => (
-        ` <div>
-        <div style="display: flex; gap: 20px;">
-            <p>${value.job}</p>
-            <p style="margin-left: 4%;">|</p>
-            <p style="margin-left: 4%;">${value.timeperiod}</p>
-        </div>
-        <p style="text-align: right;">${value.address}</p>
-    </div>`
-    )).join('')}
-    <div style="display: flex; padding: 7%; margin-left: 10%;">
-        <div>
-            <h5 style="text-align: left;">Skills</h5>
+
+        <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
+        <p>${intro}</p>
+        <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
+        <h4 class="section-heading"
+            style="text-align: center;  font-weight: 600; margin-bottom: 2rem; color: #333333;">Key
+            Skills</h4>
+        <div class="institute-details">
             ${skills.map((value) => (
-        ` <li style="text-align: left;">${value.skill}</li> `
+        ` <h6>${value.skill}</h6> `
     )).join('')}
-
-
         </div>
-        <div style="margin-left: 14%;">
-            <h5 style="text-align: right;">Interest</h5>
+        <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
+        <h4 class="section-heading"
+            style="text-align: center;  font-weight: 600; margin-bottom: 2rem; color: #333333;">
+            Employment History</h4>
+        <div>
+            ${careers.map((value) => (
+        ` <div class="job-item">
+                <div class="institute-details">
+                    <h5>${value.job} <span> | </span> ${value.timeperiod}</h5>
+                    <h5>Company: ${value.company}</h5>
+                    <h5>Address: ${value.address}</h5>
+                    <h5>Phone: ${value.phone}</h5>
+                    <hr style="width: 30%;" />
+                </div>
+            </div> `
+    )).join('')}
+        </div>
+        <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
+        <h4 class="section-heading"
+            style="text-align: center;  font-weight: 600; margin-bottom: 2rem; color: #333333;">
+            Qualifications</h4>
+        <div class="institute-details">
+            ${educations.map((value) => (
+        ` <h5>${value.qualification} <span> | </span> ${value.timeperiod}</h5> <hr style="width: 30%;" /> `
+    )).join('')}
+        </div>
+        <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
+        <h4 class="section-heading"
+            style="text-align: center;  font-weight: 600; margin-bottom: 2rem; color: #333333;">Training
+            Courses</h4>
+        <div class="institute-details">
+            ${courses.map((value) => (
+        ` <h5>${value.course} <span> | </span> ${value.timeperiod}</h5> <hr style="width: 30%;" /> `
+    )).join('')}
+        </div>
+        <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
+        <h4 class="section-heading"
+            style="text-align: center;  font-weight: 600; margin-bottom: 2rem; color: #333333;">
+            Interests</h4>
+        <div class="institute-details">
             ${interests.map((value) => (
-       ` <li style="text-align: left;">${value.interest}</li> `
+        ` <h5>${value.interest}</h5> `
     )).join('')}
-
         </div>
-    </div>
-    <div>
-        <h5>Education</h5>
-        ${educations.map((value) => (
-        `<div>
-            <div style="display: flex; ">
-                <p>${value.qualification}</p>
-                <p style="margin-left: 4%;">|</p>
-                <p style="margin-left: 4%;">${value.timeperiod}</p>
-            </div>
-            <p style="text-align: right;">${value.address}</p>
-        </div>`
-    )).join('')}
     </div>
 
 </body>
