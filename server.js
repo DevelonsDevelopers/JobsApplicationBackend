@@ -108,11 +108,9 @@ app.post('/api/distribute', async (req, res) => {
 
     transporter.sendMail(message, function (err, info) {
         if (err) {
-            console.log(err)
-            res.status(200).json({ "responseCode": 200, "message": "API Jobs added successfully"});
+            res.status(200).json({ "responseCode": 205, "message": "Resume Failed...."});
         } else {
-            console.log(info);
-            res.status(200).json({ "responseCode": 200, "message": "API Jobs added successfully", data: null});
+            res.status(200).json({ "responseCode": 200, "message": "Resume Distributed successfully"});
         }
     })
 })
