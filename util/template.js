@@ -54,7 +54,7 @@ function template(
         <div>
             <h5 style="text-align: left;">Skills</h5>
             ${skills.map((value) => (
-        ` <li style="text-align: left;">${value.skill}</li>`
+        ` <li style="text-align: left;">${value.skill}</li> `
     )).join('')}
 
 
@@ -62,7 +62,7 @@ function template(
         <div style="margin-left: 14%;">
             <h5 style="text-align: right;">Interest</h5>
             ${interests.map((value) => (
-        <li style="text-align: left;">${value.interest}</li>
+       ` <li style="text-align: left;">${value.interest}</li> `
     )).join('')}
 
         </div>
