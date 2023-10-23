@@ -8,15 +8,15 @@ module.exports = class Country {
     }
 
     static fetchAll(){
-        return db.query('SELECT cv.*, seekers.name, seekers.role, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user')
+        return db.query('SELECT cv.*, seekers.name, seekers.role, seekers.username, seekers.email, seekers.password, seekers.code, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user')
     }
 
     static fetchByID(params){
-        return db.query('SELECT cv.*, seekers.name, seekers.role, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE cv.id = ?', [params.id])
+        return db.query('SELECT cv.*, seekers.name, seekers.role, seekers.username, seekers.email, seekers.password, seekers.code, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE cv.id = ?', [params.id])
     }
 
     static fetchByUser(params){
-        return db.query('SELECT cv.*, seekers.name, seekers.role, seekers.username, seekers.email, seekers.password, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE cv.user = ?', [params.user])
+        return db.query('SELECT cv.*, seekers.name, seekers.role, seekers.username, seekers.email, seekers.password, seekers.code, seekers.phone, seekers.address, seekers.dob, seekers.gender FROM cv INNER JOIN seekers ON seekers.id = cv.user WHERE cv.user = ?', [params.user])
     }
 
     static post(params){

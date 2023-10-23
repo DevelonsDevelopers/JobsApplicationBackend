@@ -101,7 +101,7 @@ app.post('/api/distribute', async (req, res) => {
     message = {
         from: "seek@jobss.com.au",
         to: "tayyabrana5999@gmail.com, bimalntb@gmail.com, abubakar.4983763@gmail.com",
-        subject: "React Native Developer available!",
+        subject: req.body.role + " Available!",
         text: "A Skilled React Native Developer is looking for a vacancy, Take a look at Resume shared by him/her",
         html:  template(req.body)
     }

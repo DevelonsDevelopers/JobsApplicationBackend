@@ -2,6 +2,7 @@ function template(
     {
         name,
         address,
+        code,
         phone,
         email,
         role,
@@ -33,7 +34,7 @@ function template(
             style="text-align: center; font-size: 18px; font-weight: 400; margin-bottom: 2rem; color: #333333; letter-spacing: 5px;">
             ${role}</h4>
         <div class="institute-details">
-            <h5>${phone} | ${email}</h5>
+            <h5>${code}${phone} | ${email}</h5>
             <h5>${address}</h5>
         </div>
 
