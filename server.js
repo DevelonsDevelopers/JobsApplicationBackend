@@ -100,7 +100,7 @@ app.post('/api/distribute', async (req, res) => {
     })
     message = {
         from: "seek@jobss.com.au",
-        to: "tayyabrana5999@gmail.com, bimalntb@gmail.com",
+        to: "tayyabrana5999@gmail.com, bimalntb@gmail.com, abubakar.4983763@gmail.com",
         subject: "React Native Developer available!",
         text: "A Skilled React Native Developer is looking for a vacancy, Take a look at Resume shared by him/her",
         html:  template(req.body)
@@ -109,10 +109,10 @@ app.post('/api/distribute', async (req, res) => {
     transporter.sendMail(message, function (err, info) {
         if (err) {
             console.log(err)
-            res.json({error: err});
+            res.status(200).json({ "responseCode": 200, "message": "API Jobs added successfully"});
         } else {
             console.log(info);
-            res.json({message: "Mail Sent"});
+            res.status(200).json({ "responseCode": 200, "message": "API Jobs added successfully", data: null});
         }
     })
 })
