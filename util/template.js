@@ -45,7 +45,7 @@ function template(
         <div class="institute-details">
             ${skills.map((value) => (
         ` <h3>${value.skill}</h3> `
-    ))}
+    )).join('')}
         </div>
         <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
         <h2 class="section-heading"
@@ -55,13 +55,13 @@ function template(
             ${careers.map((value) => (
         ` <div class="job-item">
             <div class="institute-details">
-                <h3>${value.job} <span>|</span> ${value.timeperiod}</h3>
+                <h3>${value.job} <span> | </span> ${value.timeperiod}</h3>
                 <h3>Company: ${value.company}</h3>
                 <h3>Address: ${value.address}</h3>
                 <h3>Phone: ${value.phone}</h3>
             </div>
         </div> `
-    ))}
+    )).join('')}
         </div>
         <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
         <h2 class="section-heading"
@@ -70,7 +70,7 @@ function template(
         <div class="institute-details">
             ${educations.map((value) => (
         ` <h3>${value.qualification} <span> | </span> ${value.timeperiod}</h3> `
-    ))}
+    )).join('')}
         </div>
         <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
         <h2 class="section-heading"
@@ -79,7 +79,7 @@ function template(
         <div class="institute-details">
             ${courses.map((value) => (
         ` <h3>${value.course} <span> | </span> ${value.timeperiod}</h3> `
-    ))}
+    )).join('')}
         </div>
         <hr class="separator" style="margin-top: 2rem; border-top: 2px solid #e1e1e1;">
         <h2 class="section-heading"
@@ -88,7 +88,7 @@ function template(
         <div class="institute-details">
             ${interests.map((value) => (
         ` <h3>${value.interest}</h3> `
-    ))}
+    )).join('')}
         </div>
     </div>
 
