@@ -20,140 +20,66 @@ function template(
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500&display=swap"
-        rel="stylesheet">
 </head>
-
 <style>
+    @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,200;0,400;1,100;1,200;1,300&display=swap');
+
     * {
-        font-family: 'Poppins', sans-serif;
+        font-family: 'Raleway', sans-serif;
     }
-
-    h2 {
-        font-weight: 400;
-        font-size: 12px;
-    }
-
-    h3 {
-        font-weight: 400;
-        font-size: 12px;
-    }
-    h4 {
-        font-weight: 400;
-        font-size: 12px;
-    }
-    p {
-        font-weight: 400;
-        font-size: 12px;
-    }
-
-
-
-
 </style>
 
-<body>
-    <div style="background-color: rgb(231, 231, 231); border: 1px solid gray; border-radius: 20px; padding: 4%; margin: 5%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19); ">
-        <center>
-            <h2>${name}</h2>
-            <h2>${role}</h2>
-            <div style="display: flex;justify-content: center; gap: 20px;margin-top: -20px;">
-                <h3>${phone}</h3>
-                <h3>${email}</h3>
-            </div>
-            <hr>
-            <h2>Full stack</h2>
-            <hr>
-        </center>
-        <p>${intro}
-        </p>
-        <hr>
-        <h2 style="text-align: center;">Key skills</h2>
-        <hr>
-        <center>
-            <div style="grid-template-columns: repeat(3,minmax(0, 1fr)); display: grid;">
-                ${skills.map((value) => (
-        `  <div style="grid-template-columns: repeat(3,minmax(0, 1fr)); display: grid;">
-                    <h4>${value.skill}</h4>
-                </div>`
-    ))}
-            </div>
-        </center>
-        <hr>
-        <h2 style="text-align: center;">Employment History</h2>
-        <hr>
-        <div>
-            ${careers.map((value) => (
-        `<div>
-                <div style="display: flex;gap: 20px;">
-                    <h3>${value.job}</h3>
-                    <h3>|</h3>
-                    <h3>${value.timeperiod}</h3>
-                </div>
-                <div style="display: flex;margin-top: -20px;gap: 20px;">
-                    <h3>Company</h3>
-                    <h3>:</h3>
-                    <h3>${value.company}</h3>
-                </div>
-                <div style="display: flex;margin-top: -20px;gap: 20px;">
-                    <h3>Address</h3>
-                    <h3>:</h3>
-                    <h3>${value.address}</h3>
-                </div>
-                <h3 style="text-align: right;">Phone:${value.phone}</h3>
-            </div>`
-    ))}
-
-            <hr>
+<body style="padding: 4%;">
+    <center>
+        <h2>${name} </h2>
+        <div style="display: flex; gap: 20px;margin-top: -20px;justify-content: center;">
+            <h4>${phone}</h4>
+            <h4>${email}</h4>
         </div>
-
-        <h2 style="text-align: center;">Qualification</h2>
-        <hr>
-        <div>
-            ${educations.map((value) => (
-        `<div>
-                <div style="display: flex;gap: 20px;">
-                    <h3>${value.qualification}</h3>
-                    <h3>|</h3>
-                    <h3>${value.timeperiod}</h3>
-                </div>
-
-                <h3 style="text-align: right;">${value.address}</h3>
-
-            </div>`
-    ))}
-            <hr>
+    </center>
+    <h4>Personal Statment :</h4>
+    <p>${intro}</p>
+    <h4>Work Experience :</h4>
+    ${careers.map((value) => (
+        ` <div>
+        <div style="display: flex; gap: 20px;">
+            <p>${value.job}</p>
+            <p>|</p>
+            <p>${value.timeperiod}</p>
         </div>
-        <h2 style="text-align: center;">Training Courses</h2>
-        <hr>
+        <p>${value.address}</p>
+    </div> `
+    ))}
+    <div style="display: flex; justify-content:space-between; padding: 7%;">
         <div>
-            ${courses.map((value) => (
-        `<div>
-                <div style="display: flex;gap: 20px;">
-                    <h3>${value.course}</h3>
-                    <h3>|</h3>
-                    <h3>${value.timeperiod}</h3>
-                </div>
+            <h4 style="text-align: left;">Skills</h4>
+            ${skills.map((value) => (
+        ` <li style="text-align: right;">${value.skill}</li> `
+    ))}
 
-                <h3 style="text-align: right;">${value.address}</h3>
-            </div>`
-    ))}
-            <hr>
+
         </div>
-        <h2 style="text-align: center;">Interest</h2>
-        <hr>
-        <center>
-            <div style="grid-template-columns: repeat(3,minmax(0, 1fr)); display: grid;">
-                ${interests.map((value) => (
-        ` <h4>${value.interest}</h4>`
+        <div>
+            <h4 style="text-align: right;">Interest</h4>
+            ${interests.map((value) => (
+        ` <li style="text-align: left;">${value.interest}</li> `
     ))}
-            </div>
-        </center>
+
+        </div>
     </div>
-
+    <div>
+        <h4>Education</h4>
+        ${educations.map((value) => (
+        ` <div>
+            <div style="display: flex; gap: 20px;">
+                <p>${value.qualification}</p>
+                <p>|</p>
+                <p>${value.timeperiod}</p>
+            </div>
+            <p style="text-align: right;">${value.address}</p>
+        </div> `
+    ))}
+    </div>
 
 </body>
 
