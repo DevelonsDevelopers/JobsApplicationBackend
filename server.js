@@ -116,11 +116,11 @@ app.post('/api/distribute', async (req, res) => {
     })
 })
 
-// app.use(cors({
-//     // origin: 'https://gym-management-next.vercel.app',
-//     origin: ['http://192.168.1.15:3000', 'http://192.168.1.15:3001', 'http://192.168.1.25:3000', 'http://localhost:3000', 'https://jobss.com.au', 'http://jobss.com.au'],
-//     credentials: true
-// }))
+app.use(cors({
+    // origin: 'https://gym-management-next.vercel.app',
+    origin: ['http://192.168.1.15:3000', 'http://192.168.1.15:3001', 'http://192.168.1.25:3000', 'http://localhost:3000', 'https://jobss.com.au', 'http://jobss.com.au'],
+    credentials: true
+}))
 
 app.use(cookieParser('JOBAPI'))
 
