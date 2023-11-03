@@ -3,12 +3,6 @@ const Seeker = require('../models/seeker')
 const CV = require('../models/cv')
 const bcrypt = require("bcrypt");
 
-function sleep(ms) {
-    return new Promise((resolve) => {
-        setTimeout(resolve, ms);
-    });
-}
-
 exports.register = async (req, res, next) => {
     try {
         const [checkUser] = await SeekerAuth.checkUsername(req.body)
@@ -70,8 +64,6 @@ exports.google = async (req, res, next) => {
         const [user] = await SeekerAuth.register(req.body)
         if (user) {
             CV.create(user.insertId, 'Personal Statement')
-            await sleep(2000)
-            const [[data]] = await Seeker.fetchByID(user.insertId)
             res.status(200).json({"responseCode": 200, "message": "Google Registered Successfully", data: user.insertId});
         } else {
             res.status(200).json({"responseCode": 207, "message": "Failed To Register Google", data: null});
