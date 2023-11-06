@@ -14,7 +14,7 @@ module.exports = class Category {
     }
 
     static fetchFeatured(){
-        return db.query('SELECT *, (SELECT COUNT(*) FROM jobs INNER JOIN countries ON jobs.country = countries.id INNER JOIN cities ON jobs.city = cities.id WHERE jobs.category = categories.id) as jobs FROM categories ORDER BY categories.id DESC LIMIT 4')
+        return db.query('SELECT *, (SELECT COUNT(*) FROM jobs INNER JOIN countries ON jobs.country = countries.id INNER JOIN cities ON jobs.city = cities.id WHERE jobs.category = categories.id) as jobs FROM categories ORDER BY jobs DESC LIMIT 4')
     }
 
     static fetchByID(params){
