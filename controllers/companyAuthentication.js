@@ -70,6 +70,7 @@ exports.login = async (req, res, next) => {
             res.status(200).json({responseCode: 205, message: "Email address not exist", data: null});
         } else {
             bcrypt.compare(req.body.password, checkEmail.password, (err, response) => {
+                console.log(response);
                 if (err) {
                     if (!err.statusCode) {
                         err.statusCode = 500
