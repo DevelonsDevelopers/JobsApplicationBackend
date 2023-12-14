@@ -23,7 +23,7 @@ module.exports = class Seeker {
     }
 
     static fetchByID(params){
-        return db.query('SELECT seekers.*, cities.name as city_name, countries.name as country_name, (SELECT COUNT(*) FROM bookmarks WHERE bookmarks.user = seekers.id INNER JOIN jobs ON jobs.id = bookmarks.job) as saved , (SELECT COUNT(*) FROM applied WHERE applied.user = seekers.id INNER JOIN jobs on jobs.id = applied.job) as applied, IFNULL(user_plans.plan, 0) as plan FROM seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country LEFT JOIN user_plans ON user_plans.user = seekers.id AND user_plans.user_type = \'Seeker\' WHERE seekers.id = ?', [params.id])
+        return db.query('SELECT seekers.*, cities.name as city_name, countries.name as country_name, (SELECT COUNT(*) FROM bookmarks INNER JOIN jobs ON jobs.id = bookmarks.job WHERE bookmarks.user = seekers.id) as saved , (SELECT COUNT(*) FROM applied INNER JOIN jobs on jobs.id = applied.job WHERE applied.user = seekers.id) as applied, IFNULL(user_plans.plan, 0) as plan FROM seekers LEFT JOIN cities ON cities.id = seekers.city LEFT JOIN countries ON countries.id = seekers.country LEFT JOIN user_plans ON user_plans.user = seekers.id AND user_plans.user_type = \'Seeker\' WHERE seekers.id = ?', [params.id])
     }
 
     static fetchByEmail(params){
