@@ -2,5 +2,5 @@
   "host": "localhost",
   "user": "developer",
   "password": "Developer@2255",
-  "database": "jobsapp"
+  "database": "jobs_app"
 }
