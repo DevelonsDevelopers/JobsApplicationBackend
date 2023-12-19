@@ -24,7 +24,7 @@ exports.register = async (req, res, next) => {
         next(error)
     }
 }
-
+g
 exports.login = async (req, res, next) => {
     try {
         const [[checkEmail]] = await UserAuth.checkEmail(req.body)
