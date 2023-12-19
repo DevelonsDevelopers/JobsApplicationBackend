@@ -28,7 +28,7 @@ exports.register = async (req, res, next) => {
 exports.login = async (req, res, next) => {
     try {
         const [[checkEmail]] = await UserAuth.checkEmail(req.body)
-        if (!checkEmail && checkEmail.length === 0) {
+        if (!checkEmail || checkEmail.length === 0) {
             res.status(200).json({"responseCode": 200, "message": "Email address not exist", data: null});
         } else {
             bcrypt.compare(req.body.password, checkEmail.password, (err, response) => {
