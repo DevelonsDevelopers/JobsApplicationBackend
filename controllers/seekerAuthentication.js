@@ -64,8 +64,7 @@ exports.google = async (req, res, next) => {
         const [user] = await SeekerAuth.register(req.body)
         if (user) {
             CV.create(user.insertId, 'Personal Statement')
-            const [[data]] = Seeker.fetchByID(user.insertId)
-            res.status(200).json({"responseCode": 200, "message": "Google Registered Successfully", data: data});
+            res.status(200).json({"responseCode": 200, "message": "Google Registered Successfully", data: user.insertId});
         } else {
             res.status(200).json({"responseCode": 207, "message": "Failed To Register Google", data: null});
         }

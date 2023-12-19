@@ -30,7 +30,7 @@ module.exports = class jobs {
     }
 
     static fetchJobs(params){
-        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.company_n, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.status, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark, jobs.created FROM jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city LEFT JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ?', [params.user])
+        return db.query('SELECT jobs.id, jobs.city, jobs.category, jobs.country, jobs.company, jobs.company_n, jobs.title, jobs.role, jobs.designation, jobs.salary, jobs.description, jobs.link, jobs.type, jobs.workdays, jobs.worktime, jobs.address, jobs.experience, jobs.qualification, jobs.skills, jobs.date, jobs.tags, jobs.status, companies.name as company_name, categories.name as category_name, cities.name as city_name, countries.name as country_name, IFNULL(bookmarks.id, 0) as bookmark, jobs.created FROM jobs INNER JOIN categories ON categories.id = jobs.category INNER JOIN countries ON countries.id = jobs.country INNER JOIN cities ON cities.id = jobs.city LEFT JOIN companies ON companies.id = jobs.company LEFT JOIN bookmarks ON bookmarks.job = jobs.id AND bookmarks.user = ? ORDER BY jobs.id DESC', [params.user])
     }
 
     static fetchRecommended(params){
