@@ -90,7 +90,7 @@ exports.CheckCV = async (req, res, next) => {
         cv.languages = cv_languages;
         cv.resumes = cv_resumes;
         cv.skills = cv_skills;
-        if (!cv.role) {
+        if (cv.role) {
             if (cv.role.length > 0) {
                 if (cv.statement && cv.statement.length > 0) {
                     if (cv_career.length > 0) {
