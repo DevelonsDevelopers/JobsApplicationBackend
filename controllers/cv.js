@@ -90,18 +90,20 @@ exports.CheckCV = async (req, res, next) => {
         cv.languages = cv_languages;
         cv.resumes = cv_resumes;
         cv.skills = cv_skills;
-        if (!cv.role || cv.role.length > 0) {
-            if (!cv.statement || cv.statement.length > 0) {
-                if (cv_career.length > 0) {
-                    if (cv_course.length > 0) {
-                        if (cv_education.length > 0) {
-                            if (cv_interest.length > 0) {
-                                if (cv_languages.length > 0) {
-                                    // if (cv_resumes.length > 0) {
-                                    if (cv_skills.length > 0) {
-                                        status = "complete"
+        if (!cv.role) {
+            if (cv.role.length > 0) {
+                if (!cv.statement && cv.statement.length > 0) {
+                    if (cv_career.length > 0) {
+                        if (cv_course.length > 0) {
+                            if (cv_education.length > 0) {
+                                if (cv_interest.length > 0) {
+                                    if (cv_languages.length > 0) {
+                                        // if (cv_resumes.length > 0) {
+                                        if (cv_skills.length > 0) {
+                                            status = "complete"
+                                        }
+                                        // }
                                     }
-                                    // }
                                 }
                             }
                         }
