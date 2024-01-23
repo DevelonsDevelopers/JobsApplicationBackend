@@ -3,9 +3,9 @@ const cvSkillController = require('../controllers/cvSkills')
 
 const router = express.Router();
 
-router.get('/api/cvSkill/all', cvSkillController.getAllSkill);
-router.post('/api/cvSkill/create', cvSkillController.createSkill);
-router.put('/api/cvSkill/update', cvSkillController.updateSkill);
-router.delete('/api/cvSkill/delete', cvSkillController.deleteSkill);
+router.get('/job/cvSkill/all', cvSkillController.getAllSkill);
+router.post('/job/cvSkill/create', cvSkillController.createSkill);
+router.put('/job/cvSkill/update', cvSkillController.updateSkill);
+router.delete('/job/cvSkill/delete', cvSkillController.deleteSkill);
 
 module.exports = router;

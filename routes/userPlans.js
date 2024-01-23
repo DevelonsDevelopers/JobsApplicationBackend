@@ -3,8 +3,8 @@ const userPlansController = require('../controllers/userPlans')
 
 const router = express.Router();
 
-router.get('/api/userPlans/all', userPlansController.getAllUserPlans);
-router.post('/api/userPlans/id', userPlansController.getUserPlan);
-router.post('/api/userPlans/create', userPlansController.createUserPlan);
+router.get('/job/userPlans/all', userPlansController.getAllUserPlans);
+router.post('/job/userPlans/id', userPlansController.getUserPlan);
+router.post('/job/userPlans/create', userPlansController.createUserPlan);
 
 module.exports = router;

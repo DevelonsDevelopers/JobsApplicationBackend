@@ -3,8 +3,8 @@ const bookmarkController = require('../controllers/bookmark')
 
 const router = express.Router();
 
-router.post('/api/bookmarks/all', bookmarkController.getAllBookmarks)
-router.post('/api/bookmarks/add', bookmarkController.bookmarkJob)
-router.delete('/api/bookmarks/remove', bookmarkController.removeBookmark)
+router.post('/job/bookmarks/all', bookmarkController.getAllBookmarks)
+router.post('/job/bookmarks/add', bookmarkController.bookmarkJob)
+router.delete('/job/bookmarks/remove', bookmarkController.removeBookmark)
 
 module.exports = router

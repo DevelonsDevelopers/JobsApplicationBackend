@@ -3,9 +3,9 @@ const authenticationController = require('../controllers/seekerAuthentication')
 
 const router = express.Router();
 
-router.post('/api/seekerAuth/register', authenticationController.register);
-router.post('/api/seekerAuth/login', authenticationController.login);
-router.post('/api/seekerAuth/google', authenticationController.google);
-router.post('/api/seekerAuth/password', authenticationController.changePassword)
+router.post('/job/seekerAuth/register', authenticationController.register);
+router.post('/job/seekerAuth/login', authenticationController.login);
+router.post('/job/seekerAuth/google', authenticationController.google);
+router.post('/job/seekerAuth/password', authenticationController.changePassword)
 
 module.exports = router;

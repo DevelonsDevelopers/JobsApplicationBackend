@@ -3,11 +3,11 @@ const transactionController = require('../controllers/transactions')
 
 const router = express.Router();
 
-router.get('/api/transactions/all', transactionController.getAllTransactions);
-router.post('/api/transactions/get', transactionController.getTransactionByID);
-router.post('/api/transactions/create', transactionController.createTransaction);
-router.put('/api/transactions/status', transactionController.statusTransaction);
-router.put('/api/transactions/update', transactionController.updateTransaction);
-router.delete('/api/transactions/delete', transactionController.deleteTransaction);
+router.get('/job/transactions/all', transactionController.getAllTransactions);
+router.post('/job/transactions/get', transactionController.getTransactionByID);
+router.post('/job/transactions/create', transactionController.createTransaction);
+router.put('/job/transactions/status', transactionController.statusTransaction);
+router.put('/job/transactions/update', transactionController.updateTransaction);
+router.delete('/job/transactions/delete', transactionController.deleteTransaction);
 
 module.exports = router;
