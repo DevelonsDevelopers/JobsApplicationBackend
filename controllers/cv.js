@@ -19,7 +19,7 @@ exports.getAllCV = async (req, res, next) => {
     }
 }
 
-exports.getCVByID = async (req, res, next) => {
+exports.getCVByID = async (req, res) => {
     try {
         const [[cv]] = await CV.fetchByID(req.body)
         const [cv_career] = await CVCareer.fetchAll(cv.id)
@@ -36,12 +36,9 @@ exports.getCVByID = async (req, res, next) => {
         cv.languages = cv_languages;
         // cv.resumes = cv_resumes;
         cv.skills = cv_skills;
-        res.status(200).json({ "responseCode": 200, "message": "Categories fetched successfully", data: cv});
+        res.status(200).json({ "responseCode": 200, "message": "CV fetched successfully", data: cv});
     } catch (error) {
-        if (!error.statusCode){
-            error.statusCode = 500
-        }
-        next(error)
+        res.status(200).json({ "responseCode": 205, "message": "CV is not completed", data: null});
     }
 }
 
