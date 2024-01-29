@@ -27,14 +27,14 @@ exports.getCVByID = async (req, res) => {
         const [cv_education] = await CVEducation.fetchAll(cv.id)
         const [cv_interest] = await CVInterest.fetchAll(cv.id)
         const [cv_languages] = await CVLanguages.fetchAll(cv.id)
-        // const [cv_resumes] = await CVResume.fetchAll(cv.id)
+        const [cv_resumes] = await CVResume.fetchAll(cv.id)
         const [cv_skills] = await CVSkills.fetchAll(cv.id)
         cv.careers = cv_career;
         cv.courses = cv_course;
         cv.educations = cv_education;
         cv.interests = cv_interest;
         cv.languages = cv_languages;
-        // cv.resumes = cv_resumes;
+        cv.resumes = cv_resumes;
         cv.skills = cv_skills;
         res.status(200).json({ "responseCode": 200, "message": "CV fetched successfully", data: cv});
     } catch (error) {
