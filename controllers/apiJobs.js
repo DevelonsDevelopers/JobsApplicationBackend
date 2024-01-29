@@ -133,7 +133,7 @@ exports.newzealandJobs = async (req, res, next) => {
                     salary: salary
                 })
             }
-            res.status(200).json({ "responseCode": 200, "message": "API Jobs added successfully", data: null });
+            res.status(200).json({ "responseCode": 200, "message": "API Jobs added successfully", data: array });
         })
         .catch((error) => {
             console.log(error);
