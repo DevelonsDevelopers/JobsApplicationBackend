@@ -19,7 +19,7 @@ exports.getAllCV = async (req, res, next) => {
     }
 }
 
-exports.getCVByID = async (req, res) => {
+exports.getCVByID = async (req, res, next) => {
     try {
         const [[cv]] = await CV.fetchByID(req.body)
         const [cv_career] = await CVCareer.fetchAll(cv.id)
@@ -27,39 +27,46 @@ exports.getCVByID = async (req, res) => {
         const [cv_education] = await CVEducation.fetchAll(cv.id)
         const [cv_interest] = await CVInterest.fetchAll(cv.id)
         const [cv_languages] = await CVLanguages.fetchAll(cv.id)
-        const [cv_resumes] = await CVResume.fetchAll(cv.id)
+        // const [cv_resumes] = await CVResume.fetchAll(cv.id)
         const [cv_skills] = await CVSkills.fetchAll(cv.id)
         cv.careers = cv_career;
         cv.courses = cv_course;
         cv.educations = cv_education;
         cv.interests = cv_interest;
         cv.languages = cv_languages;
-        cv.resumes = cv_resumes;
+        // cv.resumes = cv_resumes;
         cv.skills = cv_skills;
-        res.status(200).json({ "responseCode": 200, "message": "CV fetched successfully", data: cv});
+        res.status(200).json({ "responseCode": 200, "message": "Categories fetched successfully", data: cv});
     } catch (error) {
-        res.status(200).json({ "responseCode": 205, "message": "CV is not completed", data: null});
+        if (!error.statusCode){
+            error.statusCode = 500
+        }
+        next(error)
     }
 }
 
 exports.getCVByUser = async (req, res, next) => {
     try {
         const [[cv]] = await CV.fetchByUser(req.body)
-        const [cv_career] = await CVCareer.fetchAll(cv.id)
-        const [cv_course] = await CVCourse.fetchAll(cv.id)
-        const [cv_education] = await CVEducation.fetchAll(cv.id)
-        const [cv_interest] = await CVInterest.fetchAll(cv.id)
-        const [cv_languages] = await CVLanguages.fetchAll(cv.id)
-        const [cv_resumes] = await CVResume.fetchAll(cv.id)
-        const [cv_skills] = await CVSkills.fetchAll(cv.id)
-        cv.careers = cv_career;
-        cv.courses = cv_course;
-        cv.educations = cv_education;
-        cv.interests = cv_interest;
-        cv.languages = cv_languages;
-        cv.resumes = cv_resumes;
-        cv.skills = cv_skills;
-        res.status(200).json({ "responseCode": 200, "message": "Categories fetched successfully", data: cv});
+        try {
+            const [cv_career] = await CVCareer.fetchAll(cv.id)
+            const [cv_course] = await CVCourse.fetchAll(cv.id)
+            const [cv_education] = await CVEducation.fetchAll(cv.id)
+            const [cv_interest] = await CVInterest.fetchAll(cv.id)
+            const [cv_languages] = await CVLanguages.fetchAll(cv.id)
+            const [cv_resumes] = await CVResume.fetchAll(cv.id)
+            const [cv_skills] = await CVSkills.fetchAll(cv.id)
+            cv.careers = cv_career;
+            cv.courses = cv_course;
+            cv.educations = cv_education;
+            cv.interests = cv_interest;
+            cv.languages = cv_languages;
+            cv.resumes = cv_resumes;
+            cv.skills = cv_skills;
+            res.status(200).json({ "responseCode": 200, "message": "CV fetched successfully", data: cv});
+        } catch (error) {
+            res.status(200).json({ "responseCode": 205, "message": "CV is not completed", data: null});
+        }
     } catch (error) {
         console.log(error)
         if (!error.statusCode){
